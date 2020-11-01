@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS User (
     address    			VARCHAR(255)	NOT NULL 	COMMENT 'Почтовый адрес',    
     is_identified		BOOLEAN 		NOT NULL 	COMMENT 'Статус (идентифицирован)',
 	office_id 			INTEGER 		NOT NULL 	COMMENT 'Id oфиса',
-	document_id			INTEGER 		NOT NULL 	COMMENT 'Документ' UNIQUE,
+	document_id			INTEGER 		NOT NULL 	COMMENT 'Документ',
 	citizenship			INTEGER 		NOT NULL 	COMMENT 'Гражданство'	
 );
 COMMENT ON TABLE User IS 'Работник';
@@ -72,7 +72,7 @@ COMMENT ON TABLE User IS 'Работник';
 CREATE INDEX IX_User_office_id   ON User (office_id);
 ALTER TABLE User ADD FOREIGN KEY (office_id)   REFERENCES Office(id);
 
-CREATE INDEX IX_User_document_id ON User (document_id);
+CREATE UNIQUE INDEX UX_User_document_id ON User (document_id);
 ALTER TABLE User ADD FOREIGN KEY (document_id) REFERENCES Document(id);
 
 CREATE INDEX IX_User_citizenship ON User (citizenship);
