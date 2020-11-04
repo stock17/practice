@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.bellintegrator.practice.daointerface.CountryDao;
 import ru.bellintegrator.practice.model.Country;
 import javax.persistence.EntityManager;
@@ -16,8 +17,12 @@ import java.util.List;
 
 public class CountryDaoImpl implements CountryDao {
 
-    @PersistenceContext
-    EntityManager em;
+    private final EntityManager em;
+
+    @Autowired
+    public CountryDaoImpl(EntityManager em) {
+        this.em = em;
+    }
 
     /**
      * {@inheritDoc}
