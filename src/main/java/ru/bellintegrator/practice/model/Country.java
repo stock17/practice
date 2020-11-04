@@ -3,7 +3,7 @@ package ru.bellintegrator.practice.model;
 import javax.persistence.*;
 
 /**
- * Справочный класс, содержащий в себе числовой код страны и соответствующее наименование
+ * Справочный класс, содержащий в себе числовой код страны и соответствующее ему наименование
  */
 @Entity
 @Table(name = "Country")
@@ -12,6 +12,7 @@ public class Country {
     /**
      * Числовой код страны
      */
+    @Id
     @Column(name="id")
     private Integer code;
 
