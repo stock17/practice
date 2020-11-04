@@ -11,6 +11,9 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+/**
+ * Класс контроллер для операций со странами
+ */
 @RestController
 @RequestMapping(value = "/api/countries/", produces = APPLICATION_JSON_VALUE)
 public class CountryController {
@@ -22,6 +25,11 @@ public class CountryController {
         this.service = service;
     }
 
+    /**
+     * Возвращает список стран, содержащихся в справочнике, в виде списка DTO-объектов
+     *
+     * @return список {@link ru.bellintegrator.practice.view.CountryView}
+     */
     @GetMapping("/")
     public List<CountryView> getCountries() {
         return service.findAll();
