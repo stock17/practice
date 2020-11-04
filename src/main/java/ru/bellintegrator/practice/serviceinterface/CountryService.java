@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.service;
+package ru.bellintegrator.practice.serviceinterface;
 
 
 import ru.bellintegrator.practice.model.Country;
