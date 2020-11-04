@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<orika.mapper.version>1.5.2</orika.mapper.version>
+		<orika.mapper.version>1.5.4</orika.mapper.version>
 	</properties>
 
 	<dependencies>
