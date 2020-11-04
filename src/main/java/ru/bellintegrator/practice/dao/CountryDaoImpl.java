@@ -1,10 +1,10 @@
 package ru.bellintegrator.practice.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.daointerface.CountryDao;
 import ru.bellintegrator.practice.model.Country;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -15,6 +15,7 @@ import java.util.List;
  * для работы с базой данных по спецификации JPA
  */
 
+@Repository
 public class CountryDaoImpl implements CountryDao {
 
     private final EntityManager em;
@@ -43,7 +44,9 @@ public class CountryDaoImpl implements CountryDao {
     @Override
     public List<Country> findAll() {
         CriteriaQuery<Country> criteria = em.getCriteriaBuilder().createQuery(Country.class);
-        return em.createQuery(criteria).getResultList();
+        criteria.from(Country.class);
+        List<Country> list = em.createQuery(criteria).getResultList();
+        return list;
     }
 
     /**
