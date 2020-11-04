@@ -25,7 +25,7 @@ public class Country {
     /**
      * Наименование страны, соответствующее коду
      */
-    @Column(name = "name")
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
     public Integer getCode() {
