@@ -42,6 +42,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public void addCountry(CountryView countryView) {
         Country country = mapperFactory.getMapperFacade().map(countryView, Country.class);
+        countryDao.add(country);
     }
 
     /**
