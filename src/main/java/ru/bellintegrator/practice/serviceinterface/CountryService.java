@@ -30,7 +30,4 @@ public interface CountryService {
      * @return список {@link ru.bellintegrator.practice.model.Country}
      */
     List<CountryView> findAll();
-
-
-
 }
