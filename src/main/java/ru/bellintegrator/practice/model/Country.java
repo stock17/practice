@@ -13,7 +13,7 @@ public class Country {
      * Числовой код страны
      */
     @Id
-    @Column(name="id")
+    @Column(name="code")
     private Integer code;
 
     /**
