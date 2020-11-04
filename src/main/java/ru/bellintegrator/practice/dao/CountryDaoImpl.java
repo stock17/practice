@@ -46,4 +46,11 @@ public class CountryDaoImpl implements CountryDao {
         return em.createQuery(criteria).getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void add(Country country) {
+        em.persist(country);
+    }
 }

@@ -26,4 +26,10 @@ public interface CountryDao {
      */
     List<Country> findAll();
 
+    /**
+     * Метод сохраняет в справочник новую запись {@link ru.bellintegrator.practice.model.Country}
+     * @param country  новая запись о гражданстве
+     */
+    void add(Country country);
+
 }
