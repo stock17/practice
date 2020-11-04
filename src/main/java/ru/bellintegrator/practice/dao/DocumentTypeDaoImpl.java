@@ -2,8 +2,9 @@ package ru.bellintegrator.practice.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.bellintegrator.practice.daointerface.CountryDao;
-import ru.bellintegrator.practice.model.Country;
+import ru.bellintegrator.practice.daointerface.DocumentTypeDao;
+import ru.bellintegrator.practice.model.DocumentType;
+
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,17 +12,16 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
- * Реализация интерфейса {@link ru.bellintegrator.practice.daointerface.CountryDao}
+ * Реализация интерфейса {@link ru.bellintegrator.practice.daointerface.DocumentTypeDao}
  * для работы с базой данных по спецификации JPA
  */
-
 @Repository
-public class CountryDaoImpl implements CountryDao {
+public class DocumentTypeDaoImpl implements DocumentTypeDao {
 
     private final EntityManager em;
 
     @Autowired
-    public CountryDaoImpl(EntityManager em) {
+    public DocumentTypeDaoImpl(EntityManager em) {
         this.em = em;
     }
 
@@ -29,10 +29,10 @@ public class CountryDaoImpl implements CountryDao {
      * {@inheritDoc}
      */
     @Override
-    public Country findByCode(Integer code) {
+    public DocumentType findByCode(Integer code) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Country> criteria = builder.createQuery(Country.class);
-        Root<Country> root = criteria.from(Country.class);
+        CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
+        Root<DocumentType> root = criteria.from(DocumentType.class);
         criteria.where(builder.equal(root.get("code"), code));
         return em.createQuery(criteria).getSingleResult();
     }
@@ -40,11 +40,10 @@ public class CountryDaoImpl implements CountryDao {
     /**
      * {@inheritDoc}
      */
-
     @Override
-    public List<Country> findAll() {
-        CriteriaQuery<Country> criteria = em.getCriteriaBuilder().createQuery(Country.class);
-        criteria.from(Country.class);
+    public List<DocumentType> findAll() {
+        CriteriaQuery<DocumentType> criteria = em.getCriteriaBuilder().createQuery(DocumentType.class);
+        criteria.from(DocumentType.class);
         return em.createQuery(criteria).getResultList();
     }
 
@@ -52,7 +51,7 @@ public class CountryDaoImpl implements CountryDao {
      * {@inheritDoc}
      */
     @Override
-    public void add(Country country) {
-        em.persist(country);
+    public void add(DocumentType type) {
+        em.persist(type);
     }
 }
