@@ -25,12 +25,12 @@ ALTER TABLE Document ADD FOREIGN KEY (doc_code) REFERENCES Document_type(code);
 
 
 CREATE TABLE IF NOT EXISTS Organization (
-    id          INTEGER                 COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
+    id          INTEGER                  COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version     INTEGER      NOT NULL    COMMENT 'Служебное поле hibernate',
     name        VARCHAR(50)  NOT NULL    COMMENT 'Наименование',
     full_name   VARCHAR(255) NOT NULL    COMMENT 'Полное наименование',
-    inn         BIGINT       NOT NULL    COMMENT 'Идентификационный налоговый номер',
-    kpp         BIGINT       NOT NULL    COMMENT 'Код причины постановки',
+    inn         VARCHAR(10)  NOT NULL    COMMENT 'Идентификационный налоговый номер',
+    kpp         VARCHAR(9)   NOT NULL    COMMENT 'Код причины постановки',
     address     VARCHAR(255) NOT NULL    COMMENT 'Почтовый адрес',
     phone       VARCHAR(20)  NOT NULL    COMMENT 'Телефон',
     is_active   BOOLEAN      NOT NULL    COMMENT 'Статус (действующий)'

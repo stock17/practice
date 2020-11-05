@@ -45,14 +45,14 @@ public class Organization {
     /**
      * Идентификационный налоговый номер
      */
-    @Column(name = "inn", nullable = false)
-    private Long inn;
+    @Column(name = "inn", nullable = false, length = 10)
+    private String inn;
 
     /**
      * Код причины постановки
      */
-    @Column(name = "kpp", nullable = false)
-    private Long kpp;
+    @Column(name = "kpp", nullable = false, length = 9)
+    private String kpp;
 
     /**
      * Адрес
@@ -104,19 +104,19 @@ public class Organization {
         this.fullName = fullName;
     }
 
-    public Long getInn() {
+    public String getInn() {
         return inn;
     }
 
-    public void setInn(Long inn) {
+    public void setInn(String inn) {
         this.inn = inn;
     }
 
-    public Long getKpp() {
+    public String getKpp() {
         return kpp;
     }
 
-    public void setKpp(Long kpp) {
+    public void setKpp(String kpp) {
         this.kpp = kpp;
     }
 
