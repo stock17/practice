@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.daointerface.OrganizationDao;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.serviceinterface.OrganizationService;
+import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
 
 import javax.validation.constraints.NotEmpty;
@@ -57,8 +58,8 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public List<OrganizationView> findByName(@NotEmpty String name, String inn, Boolean isActive) {
+    public List<OrganizationShortView> findByName(@NotEmpty String name, String inn, Boolean isActive) {
         List<Organization> organizations = dao.findByName(name, inn, isActive);
-        return mapperFactory.getMapperFacade().mapAsList(organizations, OrganizationView.class);
+        return mapperFactory.getMapperFacade().mapAsList(organizations, OrganizationShortView.class);
     }
 }

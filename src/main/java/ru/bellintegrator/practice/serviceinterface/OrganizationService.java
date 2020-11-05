@@ -2,6 +2,7 @@ package ru.bellintegrator.practice.serviceinterface;
 
 
 import ru.bellintegrator.practice.view.DocumentTypeView;
+import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
 
 import javax.validation.constraints.NotEmpty;
@@ -41,5 +42,5 @@ public interface OrganizationService {
      * @param isActive действующий статус
      * @return список {@link ru.bellintegrator.practice.view.OrganizationView}
      */
-    List<OrganizationView> findByName(@NotEmpty String name, String inn, Boolean isActive);
+    List<OrganizationShortView> findByName(@NotEmpty String name, String inn, Boolean isActive);
 }
