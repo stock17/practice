@@ -5,6 +5,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * DTO-класс для {@link ru.bellintegrator.practice.model.Organization}
+ */
 public class OrganizationView {
     /**
      * Id
