@@ -57,4 +57,23 @@ public class OrganizationDaoImpl implements OrganizationDao {
         criteria.select(root).where(predicate);
         return em.createQuery(criteria).getResultList();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void add(Organization organization) {
+        em.persist(organization);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Organization> findAll() {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
+        criteria.from(Organization.class);
+        return em.createQuery(criteria).getResultList();
+    }
 }

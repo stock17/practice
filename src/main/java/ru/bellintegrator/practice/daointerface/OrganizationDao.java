@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.daointerface;
 
+import ru.bellintegrator.practice.model.DocumentType;
 import ru.bellintegrator.practice.model.Organization;
 
 import javax.validation.constraints.NotEmpty;
@@ -28,4 +29,18 @@ public interface OrganizationDao {
      * @return список организаций {@link ru.bellintegrator.practice.model.Organization}
      */
     List<Organization> findByName(@NotEmpty String name, String inn, Boolean isActive);
+
+    /**
+     * Метод добавляет новую организацию {@link ru.bellintegrator.practice.model.Country}
+     * @param organization организация
+     */
+    void add(Organization organization);
+
+    /**
+     * Метод возвращает все {@link ru.bellintegrator.practice.model.Organization},
+     * содержащиеся в базе в виде списка
+     *
+     * @return список {@link ru.bellintegrator.practice.model.Organization}
+     */
+    List<Organization> findAll();
 }
