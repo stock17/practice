@@ -1,6 +1,11 @@
 package ru.bellintegrator.practice.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Version;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 
 /**
  * Справочный класс, содержащий в себе числовой код страны и соответствующее ему наименование

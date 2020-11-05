@@ -5,11 +5,15 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.GenerationType;
 
 /**
  * Entity-класс для объектов организаций
  */
+@Entity
+@Table(name = "Organization")
 public class Organization {
 
     /**
