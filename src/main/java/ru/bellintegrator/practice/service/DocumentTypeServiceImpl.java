@@ -51,8 +51,6 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
     @Override
     public List<DocumentTypeView> findAll() {
         List<DocumentType> types = dao.findAll();
-        return types.stream()
-                .map(mapperFactory.getMapperFacade(DocumentType.class, DocumentTypeView.class)::map)
-                .collect(Collectors.toList());
+        return mapperFactory.getMapperFacade().mapAsList(types, DocumentTypeView.class);
     }
 }

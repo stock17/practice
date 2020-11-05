@@ -51,8 +51,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<CountryView> findAll() {
         List<Country> countries = countryDao.findAll();
-        return countries.stream()
-                .map(mapperFactory.getMapperFacade(Country.class, CountryView.class)::map)
-                .collect(Collectors.toList());
+        return mapperFactory.getMapperFacade().mapAsList(countries, CountryView.class);
     }
 }
