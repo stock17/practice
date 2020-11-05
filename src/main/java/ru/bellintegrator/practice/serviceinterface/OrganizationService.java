@@ -25,7 +25,7 @@ public interface OrganizationService {
      * Метод сохраняет переданный объект
      * @param organizationView DTO-объект
      */
-    void addOrganization(OrganizationView organizationView);
+    void save(OrganizationView organizationView);
 
     /**
      * Метод возращает все найденые организации в виде списка DTO-объектов
@@ -43,4 +43,11 @@ public interface OrganizationService {
      * @return список {@link ru.bellintegrator.practice.view.OrganizationView}
      */
     List<OrganizationShortView> findByName(@NotEmpty String name, String inn, Boolean isActive);
+
+    /**
+     * Метод обновляет данные об уже существующей организации согласно переданным параметрам
+     *
+     * @param organizationView  организация
+     */
+    void update(OrganizationView organizationView);
 }

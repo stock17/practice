@@ -9,6 +9,7 @@ import ru.bellintegrator.practice.serviceinterface.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
 
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 /**
@@ -40,9 +41,10 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public void addOrganization(OrganizationView organizationView) {
+    @Transactional
+    public void save(OrganizationView organizationView) {
         Organization organization = mapperFactory.getMapperFacade().map(organizationView, Organization.class);
-        dao.add(organization);
+        dao.save(organization);
     }
 
     /**
@@ -61,5 +63,15 @@ public class OrganizationServiceImpl implements OrganizationService {
     public List<OrganizationShortView> findByName(@NotEmpty String name, String inn, Boolean isActive) {
         List<Organization> organizations = dao.findByName(name, inn, isActive);
         return mapperFactory.getMapperFacade().mapAsList(organizations, OrganizationShortView.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public void update(OrganizationView organizationView) {
+        Organization organization = mapperFactory.getMapperFacade().map(organizationView, Organization.class);
+        dao.update(organization);
     }
 }
