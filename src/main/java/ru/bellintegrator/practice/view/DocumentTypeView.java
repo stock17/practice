@@ -17,7 +17,7 @@ public class DocumentTypeView {
     /**
      * Наименование документа
      */
-    @Size(max = 157)
+    @Size(max = 127)
     @NotEmpty(message = "Наименование не может быть пустым")
     private String name;
 
