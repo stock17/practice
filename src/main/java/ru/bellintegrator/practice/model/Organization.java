@@ -63,13 +63,13 @@ public class Organization {
     /**
      * Телефон
      */
-    @Column(name = "phone", nullable = false, length = 20)
+    @Column(name = "phone", length = 20)
     private String phone;
 
     /**
      * Действующий статус
      */
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private Boolean isActive;
 
     public long getId() {

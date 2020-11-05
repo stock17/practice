@@ -52,14 +52,12 @@ public class OrganizationView {
     /**
      * Телефон
      */
-    @NotEmpty(message = "Наименование не может быть пустым")
     @Size(max = 20)
     private String phone;
 
     /**
      * Действующий статус
      */
-    @NotNull(message = "Статус не может быть не установленным")
     private Boolean isActive;
 
     public long getId() {

@@ -26,7 +26,6 @@ public class OrganizationShortView {
     /**
      * Действующий статус
      */
-    @NotNull(message = "Статус не может быть не установленным")
     private Boolean isActive;
 
     public long getId() {

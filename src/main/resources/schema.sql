@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS Organization (
     inn         VARCHAR(10)  NOT NULL    COMMENT 'Идентификационный налоговый номер',
     kpp         VARCHAR(9)   NOT NULL    COMMENT 'Код причины постановки',
     address     VARCHAR(255) NOT NULL    COMMENT 'Почтовый адрес',
-    phone       VARCHAR(20)  NOT NULL    COMMENT 'Телефон',
-    is_active   BOOLEAN      NOT NULL    COMMENT 'Статус (действующий)'
+    phone       VARCHAR(20)              COMMENT 'Телефон',
+    is_active   BOOLEAN                  COMMENT 'Статус (действующий)'
 );
 COMMENT ON TABLE Organization IS 'Организация';
 
