@@ -34,7 +34,7 @@ public interface OrganizationDao {
      * Метод добавляет новую организацию {@link ru.bellintegrator.practice.model.Country}
      * @param organization организация
      */
-    void add(Organization organization);
+    void save(Organization organization);
 
     /**
      * Метод возвращает все {@link ru.bellintegrator.practice.model.Organization},
@@ -43,4 +43,10 @@ public interface OrganizationDao {
      * @return список {@link ru.bellintegrator.practice.model.Organization}
      */
     List<Organization> findAll();
+
+    /**
+     * Метод обноваляет данные уже существующей организации {@link ru.bellintegrator.practice.model.Country}
+     * @param organization организация
+     */
+    void update(Organization organization);
 }

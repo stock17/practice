@@ -8,6 +8,7 @@ import ru.bellintegrator.practice.model.Organization;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.constraints.NotEmpty;
@@ -62,7 +63,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public void add(Organization organization) {
+    public void save(Organization organization) {
         em.persist(organization);
     }
 
@@ -75,5 +76,32 @@ public class OrganizationDaoImpl implements OrganizationDao {
         CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
         criteria.from(Organization.class);
         return em.createQuery(criteria).getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(Organization organization) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaUpdate<Organization> update = builder.createCriteriaUpdate(Organization.class);
+        Root<Organization> root = update.from(Organization.class);
+
+        update.set(root.get("name"), organization.getName())
+            .set(root.get("fullName"), organization.getFullName())
+            .set(root.get("inn"), organization.getInn())
+            .set(root.get("kpp"), organization.getKpp())
+            .set(root.get("address"), organization.getAddress());
+
+        if (organization.getPhone() != null) {
+            update.set(root.get("phone"), organization.getPhone());
+        }
+
+        if (organization.getActive() != null) {
+            update.set(root.get("isActive"), organization.getActive());
+        }
+
+        update.where(builder.equal(root.get("id"), organization.getId()));
+        em.createQuery(update).executeUpdate();
     }
 }
