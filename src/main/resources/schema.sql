@@ -41,10 +41,10 @@ COMMENT ON TABLE Organization IS 'Организация';
 CREATE TABLE IF NOT EXISTS Office (
     id              INTEGER                  COMMENT 'Уникальный идентификатор' PRIMARY KEY AUTO_INCREMENT,
     version         INTEGER      NOT NULL    COMMENT 'Служебное поле hibernate',
-    name            VARCHAR(50)  NOT NULL    COMMENT 'Наименование',    
-    address         VARCHAR(255) NOT NULL    COMMENT 'Почтовый адрес',
-    phone           VARCHAR(20)  NOT NULL    COMMENT 'Телефон',
-    is_active       BOOLEAN      NOT NULL    COMMENT 'Статус (действующий)', 
+    name            VARCHAR(50)              COMMENT 'Наименование',    
+    address         VARCHAR(255)             COMMENT 'Почтовый адрес',
+    phone           VARCHAR(20)              COMMENT 'Телефон',
+    is_active       BOOLEAN                  COMMENT 'Статус (действующий)', 
     organization_id INTEGER      NOT NULL    COMMENT 'Id организации'    
 );
 COMMENT ON TABLE Office IS 'Офис';
