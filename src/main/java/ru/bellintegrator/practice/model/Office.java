@@ -9,10 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+import javax.persistence.Entity;
 
 /**
  * Entity-класс для объекта Офис
  */
+@Entity
 public class Office {
 
     /**
