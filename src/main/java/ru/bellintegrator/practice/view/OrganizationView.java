@@ -1,8 +1,9 @@
 package ru.bellintegrator.practice.view;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -116,6 +117,7 @@ public class OrganizationView {
         this.phone = phone;
     }
 
+    @JsonProperty("isActive")
     public Boolean getActive() {
         return isActive;
     }

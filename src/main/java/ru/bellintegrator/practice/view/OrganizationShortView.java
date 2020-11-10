@@ -1,9 +1,8 @@
 package ru.bellintegrator.practice.view;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 /**
  * DTO-класс для {@link ru.bellintegrator.practice.model.Organization}
@@ -44,6 +43,7 @@ public class OrganizationShortView {
         this.name = name;
     }
 
+    @JsonProperty("isActive")
     public Boolean getActive() {
         return isActive;
     }
