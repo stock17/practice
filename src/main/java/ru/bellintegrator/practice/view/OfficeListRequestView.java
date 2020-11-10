@@ -2,28 +2,26 @@ package ru.bellintegrator.practice.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * DTO-класс для отображения полной информации об офисе {@link ru.bellintegrator.practice.model.Office}
+ * DTO-класс для запроса списка офисов {@link ru.bellintegrator.practice.model.Office},
+ * соотвествующих переданным параметрам
  */
-public class OfficeView {
+public class OfficeListRequestView {
+
     /**
-     * Id
+     * Id организации, к которой относится офис
      */
-    private long id;
+    @NotNull(message = "Id организации не должно быть пустым")
+    private Integer orgId;
 
     /**
      * Наименование
      */
     @Size(max = 50)
     private String name;
-
-    /**
-     * Почтовый адрес
-     */
-    @Size(max = 255)
-    private String address;
 
     /**
      * Телефон
@@ -36,12 +34,12 @@ public class OfficeView {
      */
     private Boolean isActive;
 
-    public long getId() {
-        return id;
+    public Integer getOrgId() {
+        return orgId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     public String getName() {
@@ -52,14 +50,6 @@ public class OfficeView {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -68,11 +58,11 @@ public class OfficeView {
         this.phone = phone;
     }
 
-    @JsonProperty("isActive")
     public Boolean getActive() {
         return isActive;
     }
 
+    @JsonProperty("isActive")
     public void setActive(Boolean active) {
         isActive = active;
     }

@@ -2,26 +2,32 @@ package ru.bellintegrator.practice.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 /**
- * DTO-класс для отображения полной информации об офисе {@link ru.bellintegrator.practice.model.Office}
+ * DTO-класс для обновления записи об офисе {@link ru.bellintegrator.practice.model.Office}
  */
-public class OfficeView {
+public class OfficeUpdateView {
     /**
      * Id
      */
-    private long id;
+    @NotNull(message = "Id не должно быть пустым")
+    private Long id;
 
     /**
      * Наименование
      */
+    @NotEmpty(message = "Имя не должно быть пустым")
     @Size(max = 50)
     private String name;
 
     /**
      * Почтовый адрес
      */
+    @NotEmpty(message = "Адрес не должен быть пустым")
     @Size(max = 255)
     private String address;
 
@@ -36,11 +42,11 @@ public class OfficeView {
      */
     private Boolean isActive;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,12 +74,11 @@ public class OfficeView {
         this.phone = phone;
     }
 
-    @JsonProperty("isActive")
     public Boolean getActive() {
         return isActive;
     }
-
-    public void setActive(Boolean active) {
-        isActive = active;
+    @JsonProperty("isActive")
+    public void setActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 }

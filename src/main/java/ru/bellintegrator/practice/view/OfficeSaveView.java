@@ -2,16 +2,19 @@ package ru.bellintegrator.practice.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * DTO-класс для отображения полной информации об офисе {@link ru.bellintegrator.practice.model.Office}
+ * DTO-класс для внесения новой записи об офисе {@link ru.bellintegrator.practice.model.Office}
  */
-public class OfficeView {
+public class OfficeSaveView {
+
     /**
-     * Id
+     * Id организации, к которой относится офис
      */
-    private long id;
+    @NotNull(message = "Id организации не должно быть пустым")
+    private Integer orgId;
 
     /**
      * Наименование
@@ -36,12 +39,12 @@ public class OfficeView {
      */
     private Boolean isActive;
 
-    public long getId() {
-        return id;
+    public Integer getOrgId() {
+        return orgId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOrgId(Integer orgId) {
+        this.orgId = orgId;
     }
 
     public String getName() {
@@ -68,11 +71,11 @@ public class OfficeView {
         this.phone = phone;
     }
 
-    @JsonProperty("isActive")
     public Boolean getActive() {
         return isActive;
     }
 
+    @JsonProperty("isActive")
     public void setActive(Boolean active) {
         isActive = active;
     }
