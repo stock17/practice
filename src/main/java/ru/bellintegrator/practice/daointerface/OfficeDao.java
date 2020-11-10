@@ -11,12 +11,15 @@ public interface OfficeDao {
 
     /**
      * Метод возвращает список офисов  {@link ru.bellintegrator.practice.model.Office},
-     * которые соостоят в организации с указанным Id
+     * которые соостоят в организации с указанным Id и соответствуют дополнительным параметрам
      *
-     * @param orgId идентификатор организаци     *
+     * @param orgId идентификатор организации (обязательный параметр)
+     * @param name  наименование офиса
+     * @param phone телефон офиса
+     * @param isActive действующий статус
      * @return список офисов {@link ru.bellintegrator.practice.model.Office}
      */
-    List<Office> findByOrgId(Integer orgId);
+    List<Office> findByOrgId(Integer orgId, String name, String phone, Boolean isActive);
 
     /**
      * Метод возвращает {@link ru.bellintegrator.practice.model.Office} по Id
