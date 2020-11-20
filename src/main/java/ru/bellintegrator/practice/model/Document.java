@@ -6,32 +6,56 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import java.sql.Date;
 
+
+/**
+ * Entity-класс для документа, удостоверяющего личность
+ */
 @Entity
 public class Document {
 
+    /**
+     * Id документа.
+     * Не генерируется, т.к. задействован MapsId в поле User
+     */
     @Id
     private long id;
 
+    /**
+     * Служебное поле Hibernate
+     */
     @Version
     private Integer version;
 
-    @Column(name="doc_number", nullable = false)
-    private Integer docNumber;
+    /**
+     * Номер
+     */
+    @Column(name="doc_number", length = 10)
+    private String docNumber;
 
-    @Column(name="doc_date", nullable = false)
+    /**
+     * Дата выдачи
+     */
+    @Column(name="doc_date")
     private Date docDate;
 
-    @Column(name="doc_code", nullable = false)
-    private Integer docCode;
+    /**
+     * Тип по справочнику
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="doc_code")
+    private DocumentType documentType;
 
+    /**
+     * Владелец
+     */
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    @MapsId("id")
+    @MapsId
     private User user;
 
     public long getId() {
@@ -50,11 +74,11 @@ public class Document {
         this.version = version;
     }
 
-    public Integer getDocNumber() {
+    public String getDocNumber() {
         return docNumber;
     }
 
-    public void setDocNumber(Integer docNumber) {
+    public void setDocNumber(String docNumber) {
         this.docNumber = docNumber;
     }
 
@@ -66,12 +90,12 @@ public class Document {
         this.docDate = docDate;
     }
 
-    public Integer getDocCode() {
-        return docCode;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public void setDocCode(Integer docCode) {
-        this.docCode = docCode;
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 
     public User getUser() {

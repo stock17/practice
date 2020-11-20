@@ -63,13 +63,12 @@ CREATE INDEX IX_User_citizenship ON User (citizenship);
 ALTER TABLE User ADD FOREIGN KEY (citizenship) REFERENCES Country(code);
 
 
-CREATE TABLE IF NOT EXISTS Document (
-    id              INTEGER                 COMMENT 'Уникальный идентификатор' PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS Document (    
     version         INTEGER     NOT NULL    COMMENT 'Служебное поле hibernate',
-    doc_number      BIGINT      NOT NULL    COMMENT 'Номер документа',
-    doc_date        DATE        NOT NULL    COMMENT 'Дата выдачи документа',
-    doc_code        INTEGER     NOT NULL    COMMENT 'Код документа',
-	user_id			INTEGER		NOT NULL	COMMENT 'Id владельца документа'
+    doc_number      VARCHAR(10)             COMMENT 'Номер документа',
+    doc_date        DATE                    COMMENT 'Дата выдачи документа',
+    doc_code        INTEGER                 COMMENT 'Код документа',
+	user_id			INTEGER		NOT NULL	COMMENT 'Id владельца документа - MapsId' PRIMARY KEY
 );
 
 CREATE INDEX IX_Document_doc_code ON Document (doc_code);
