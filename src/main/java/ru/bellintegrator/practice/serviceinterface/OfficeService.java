@@ -1,10 +1,10 @@
 package ru.bellintegrator.practice.serviceinterface;
 
-import ru.bellintegrator.practice.view.OfficeListRequestView;
-import ru.bellintegrator.practice.view.OfficeListResponseView;
-import ru.bellintegrator.practice.view.OfficeSaveView;
-import ru.bellintegrator.practice.view.OfficeUpdateView;
-import ru.bellintegrator.practice.view.OfficeView;
+import ru.bellintegrator.practice.view.office.OfficeListRequestView;
+import ru.bellintegrator.practice.view.office.OfficeListResponseView;
+import ru.bellintegrator.practice.view.office.OfficeSaveView;
+import ru.bellintegrator.practice.view.office.OfficeUpdateView;
+import ru.bellintegrator.practice.view.office.OfficeView;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public interface OfficeService {
 
     /**
-     * Метод возвращает объект {@link ru.bellintegrator.practice.view.OfficeView}
+     * Метод возвращает объект {@link OfficeView}
      * соответствующий переданному Id
      *
      * @param id идентификатор офиса
@@ -25,8 +25,8 @@ public interface OfficeService {
     /**
      * Метод возращает все найденые офисы для указанной организации в виде списка DTO-объектов
      *
-     * @param requestView DTO запроса {@link ru.bellintegrator.practice.view.OfficeListRequestView} (обязательный параметр)
-     * @return список {@link ru.bellintegrator.practice.view.OfficeListResponseView}
+     * @param requestView DTO запроса {@link OfficeListRequestView} (обязательный параметр)
+     * @return список {@link OfficeListResponseView}
      */
     List<OfficeListResponseView> findByOrgId(OfficeListRequestView requestView);
 

@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.serviceinterface.OfficeService;
-import ru.bellintegrator.practice.view.OfficeListRequestView;
-import ru.bellintegrator.practice.view.OfficeListResponseView;
-import ru.bellintegrator.practice.view.OfficeSaveView;
-import ru.bellintegrator.practice.view.OfficeUpdateView;
-import ru.bellintegrator.practice.view.OfficeView;
+import ru.bellintegrator.practice.view.office.OfficeListRequestView;
+import ru.bellintegrator.practice.view.office.OfficeListResponseView;
+import ru.bellintegrator.practice.view.office.OfficeSaveView;
+import ru.bellintegrator.practice.view.office.OfficeUpdateView;
+import ru.bellintegrator.practice.view.office.OfficeView;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;

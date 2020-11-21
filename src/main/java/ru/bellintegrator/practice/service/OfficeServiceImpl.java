@@ -7,11 +7,11 @@ import ru.bellintegrator.practice.daointerface.OfficeDao;
 import ru.bellintegrator.practice.daointerface.OrganizationDao;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.serviceinterface.OfficeService;
-import ru.bellintegrator.practice.view.OfficeListRequestView;
-import ru.bellintegrator.practice.view.OfficeListResponseView;
-import ru.bellintegrator.practice.view.OfficeSaveView;
-import ru.bellintegrator.practice.view.OfficeUpdateView;
-import ru.bellintegrator.practice.view.OfficeView;
+import ru.bellintegrator.practice.view.office.OfficeListRequestView;
+import ru.bellintegrator.practice.view.office.OfficeListResponseView;
+import ru.bellintegrator.practice.view.office.OfficeSaveView;
+import ru.bellintegrator.practice.view.office.OfficeUpdateView;
+import ru.bellintegrator.practice.view.office.OfficeView;
 
 import java.util.List;
 import java.util.Objects;

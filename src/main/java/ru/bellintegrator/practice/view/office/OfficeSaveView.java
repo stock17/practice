@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.view;
+package ru.bellintegrator.practice.view.office;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,10 +6,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * DTO-класс для запроса списка офисов {@link ru.bellintegrator.practice.model.Office},
- * соотвествующих переданным параметрам
+ * DTO-класс для внесения новой записи об офисе {@link ru.bellintegrator.practice.model.Office}
  */
-public class OfficeListRequestView {
+public class OfficeSaveView {
 
     /**
      * Id организации, к которой относится офис
@@ -22,6 +21,12 @@ public class OfficeListRequestView {
      */
     @Size(max = 50)
     private String name;
+
+    /**
+     * Почтовый адрес
+     */
+    @Size(max = 255)
+    private String address;
 
     /**
      * Телефон
@@ -48,6 +53,14 @@ public class OfficeListRequestView {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
