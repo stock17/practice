@@ -28,18 +28,6 @@ public class MapperConfig {
                 .byDefault()
                 .register();
 
-        factory.classMap(UserListRequestView.class, User.class)
-                .field("officeId", "office.id")
-                .field("citizenshipCode", "citizenship.code")
-                .byDefault()
-                .register();
-
-        factory.classMap(UserUpdateView.class, User.class)
-                .field("officeId", "office.id")
-                .field("citizenshipCode", "citizenship.code")
-                .byDefault()
-                .register();
-
         return factory;
     }
 }

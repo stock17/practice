@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
     public void save(UserSaveView userSaveView) {
         Objects.requireNonNull(userSaveView);
         User user = mapperFactory.getMapperFacade().map(userSaveView, User.class);
-        setOffice(userSaveView, user);
-        setCitizenship(userSaveView, user);
+        setOffice(userSaveView.getOfficeId(), user);
+        setCitizenship(userSaveView.getCitizenshipCode(), user);
         Document document = createDocument(userSaveView, user);
         document.setUser(user);
         userDao.save(user);
@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<UserListResponseView> findByOfficeId(UserListRequestView requestView) {
+        Objects.requireNonNull(requestView);
         List<User> users = userDao.findByOfficeId(requestView.getOfficeId(),
                 requestView.getFirstName(),
                 requestView.getMiddleName(),
@@ -96,34 +97,48 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void update(UserUpdateView updateView) {
+        Objects.requireNonNull(updateView);
+
         User user = userDao.findById(updateView.getId());
         mapperFactory.getMapperFacade().map(updateView, user);
+        setOffice(updateView.getOfficeId(), user);
+        setCitizenship(updateView.getCitizenshipCode(), user);
         userDao.update(user);
+
         Document document = documentDao.findById(updateView.getId());
         mapperFactory.getMapperFacade().map(updateView, document);
+        setDocumentType(updateView.getDocCode(), document);
         documentDao.update(document);
     }
 
-    private void setOffice(UserSaveView userSaveView, User user) {
-        Office office = officeDao.findById(userSaveView.getOfficeId());
+    private void setOffice(Integer officeId, User user) {
+        if (Objects.isNull(officeId) || Objects.isNull(user)) {
+            return;
+        }
+        Office office = officeDao.findById(officeId);
         user.setOffice(office);
     }
 
-    private void setCitizenship(UserSaveView userSaveView, User user) {
-        if (Objects.isNull(userSaveView.getCitizenshipCode())) {
+    private void setCitizenship(Integer citizenshipCode, User user) {
+        if (Objects.isNull(citizenshipCode) || Objects.isNull(user)) {
             return;
         }
-        Country citizenship = countryDao.findByCode(userSaveView.getCitizenshipCode());
+        Country citizenship = countryDao.findByCode(citizenshipCode);
         user.setCitizenship(citizenship);
+    }
+
+    private void setDocumentType (Integer code, Document document) {
+        if (Objects.isNull(code) || Objects.isNull(document)) {
+            return;
+        }
+        DocumentType type = documentTypeDao.findByCode(code);
+        document.setDocumentType(type);
     }
 
     private Document createDocument(UserSaveView userSaveView, User user) {
         Document document = mapperFactory.getMapperFacade().map(userSaveView, Document.class);
         Integer docType = userSaveView.getDocCode();
-        if (docType != null) {
-            DocumentType documentType = documentTypeDao.findByCode(docType);
-            document.setDocumentType(documentType);
-        }
+        setDocumentType(docType, document);
         return document;
     }
 }
