@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.serviceinterface.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
+import ru.bellintegrator.practice.view.StatusView;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
@@ -29,6 +30,17 @@ public class OrganizationController {
     @Autowired
     public OrganizationController(OrganizationService service) {
         this.service = service;
+    }
+
+    /**
+     * Метод сохраняет организацию с переданными параметрами
+     *
+     * @param organizationView организация
+     */
+    @PostMapping("/save")
+    public StatusView save(@RequestBody @Valid OrganizationView organizationView) {
+        service.save(organizationView);
+        return StatusView.SUCCESS;
     }
 
     /**
@@ -62,33 +74,16 @@ public class OrganizationController {
     }
 
     /**
-     * Метод сохраняет организацию с переданными параметрами
-     *
-      * @param organizationView организация
-     * @return результат сохранения
-     */
-    @PostMapping("/save")
-    public String save(@RequestBody @Valid OrganizationView organizationView) {
-        service.save(organizationView);
-
-       //TODO refactor return success
-        return "{\"result\":\"success\"}";
-    }
-
-    /**
      * Метод обновляет запись об организации согласно переданным параметрам
      *
      * @param organizationView организация
-     * @return результат обновления
      */
     @PostMapping("/update")
-    public String update(@RequestBody @Valid OrganizationView organizationView) {
+    public StatusView update(@RequestBody @Valid OrganizationView organizationView) {
         if (organizationView.getId() == 0) {
             throw new ValidationException("поле Id не может быть пустым");
         }
         service.update(organizationView);
-
-        //TODO refactor return success
-        return "{\"result\":\"success\"}";
+        return StatusView.SUCCESS;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.serviceinterface.UserService;
+import ru.bellintegrator.practice.view.StatusView;
 import ru.bellintegrator.practice.view.user.UserListRequestView;
 import ru.bellintegrator.practice.view.user.UserListResponseView;
 import ru.bellintegrator.practice.view.user.UserSaveView;
@@ -38,13 +39,11 @@ public class UserController {
      * Метод добавляет нового работника
      *
      * @param saveView DTO работника
-     * @return результат обновления
      */
     @PostMapping("/save")
-    public String save(@Valid @RequestBody UserSaveView saveView) {
+    public StatusView save(@Valid @RequestBody UserSaveView saveView) {
         userService.save(saveView);
-        //TODO refactor return success
-        return "{\"result\":\"success\"}";
+        return StatusView.SUCCESS;
     }
 
     /**
@@ -73,12 +72,10 @@ public class UserController {
      * Метод обновляет информацию о существующем работнике
      *
      * @param updateView обновляемые параметры
-     * @return результат обновления
      */
     @PostMapping("/update")
-    public String update(@Valid @RequestBody UserUpdateView updateView) {
+    public StatusView update(@Valid @RequestBody UserUpdateView updateView) {
         userService.update(updateView);
-        //TODO refactor return success
-        return "{\"result\":\"success\"}";
+        return StatusView.SUCCESS;
     }
 }

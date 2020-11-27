@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.serviceinterface.OfficeService;
+import ru.bellintegrator.practice.view.StatusView;
 import ru.bellintegrator.practice.view.office.OfficeListRequestView;
 import ru.bellintegrator.practice.view.office.OfficeListResponseView;
 import ru.bellintegrator.practice.view.office.OfficeSaveView;
@@ -39,6 +40,17 @@ public class OfficeController {
     }
 
     /**
+     * Метод сохраняет организацию с переданными параметрами
+     *
+     * @param officeSaveView офис
+     */
+    @PostMapping("/save")
+    public StatusView save(@Valid @RequestBody OfficeSaveView officeSaveView) {
+        service.save(officeSaveView);
+        return StatusView.SUCCESS;
+    }
+
+    /**
      * Метод возвращает офис с указанным Id
      *
      * @param id идентификатор офиса
@@ -50,34 +62,6 @@ public class OfficeController {
     }
 
     /**
-     * Метод обновляет запись об офисе согласно переданным параметрам
-     *
-     * @param officeUpdateView офис
-     * @return результат обновления
-     */
-    @PostMapping("/update")
-    public String update(@Valid @RequestBody OfficeUpdateView officeUpdateView) {
-        service.update(officeUpdateView);
-
-        //TODO refactor return success
-        return "{\"result\":\"success\"}";
-    }
-
-    /**
-     * Метод сохраняет организацию с переданными параметрами
-     *
-     * @param officeSaveView офис
-     * @return результат сохранения
-     */
-    @PostMapping("/save")
-    public String save(@Valid @RequestBody OfficeSaveView officeSaveView) {
-        service.save(officeSaveView);
-
-        //TODO refactor return success
-        return "{\"result\":\"success\"}";
-    }
-
-    /**
      * Метод возвращает список офисов в кратком виде, у которых совпадают переданные параметры
      *
      * @param requestView DTO офиса, содержащий переданные параметры orgId, name, phone, isActive
@@ -86,5 +70,16 @@ public class OfficeController {
     @PostMapping("/list")
     public List<OfficeListResponseView> getListByOrgId(@Valid @RequestBody OfficeListRequestView requestView) {
         return service.findByOrgId(requestView);
+    }
+
+    /**
+     * Метод обновляет запись об офисе согласно переданным параметрам
+     *
+     * @param officeUpdateView офис
+     */
+    @PostMapping("/update")
+    public StatusView update(@Valid @RequestBody OfficeUpdateView officeUpdateView) {
+        service.update(officeUpdateView);
+        return StatusView.SUCCESS;
     }
 }
