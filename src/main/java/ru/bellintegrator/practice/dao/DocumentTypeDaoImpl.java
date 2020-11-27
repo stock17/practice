@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Реализация интерфейса {@link ru.bellintegrator.practice.daointerface.DocumentTypeDao}
@@ -30,6 +31,7 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
      */
     @Override
     public DocumentType findByCode(Integer code) {
+        Objects.requireNonNull(code, "Code не может быть NULL");
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
         Root<DocumentType> root = criteria.from(DocumentType.class);
@@ -51,7 +53,8 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
      * {@inheritDoc}
      */
     @Override
-    public void add(DocumentType type) {
+    public void save(DocumentType type) {
+        Objects.requireNonNull(type, "Type не может быть NULL");
         em.persist(type);
     }
 }

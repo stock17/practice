@@ -30,5 +30,5 @@ public interface DocumentTypeDao {
      * Метод сохраняет в справочник новую запись {@link ru.bellintegrator.practice.model.DocumentType}
      * @param type  новая запись о типе документа
      */
-    void add(DocumentType type);
+    void save(DocumentType type);
 }

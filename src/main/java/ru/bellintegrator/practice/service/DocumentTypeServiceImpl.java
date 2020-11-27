@@ -9,7 +9,6 @@ import ru.bellintegrator.practice.serviceinterface.DocumentTypeService;
 import ru.bellintegrator.practice.view.DocumentTypeView;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Реализация интерфейса {@link ru.bellintegrator.practice.serviceinterface.DocumentTypeService}
@@ -42,7 +41,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
     @Override
     public void addDocumentType(DocumentTypeView documentTypeView) {
         DocumentType documentType = mapperFactory.getMapperFacade().map(documentTypeView, DocumentType.class);
-        dao.add(documentType);
+        dao.save(documentType);
     }
 
     /**
