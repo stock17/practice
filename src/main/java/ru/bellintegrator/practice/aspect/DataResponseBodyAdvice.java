@@ -8,6 +8,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import ru.bellintegrator.practice.view.DataView;
+import ru.bellintegrator.practice.view.ErrorView;
 import ru.bellintegrator.practice.view.StatusView;
 
 /**
@@ -17,11 +18,12 @@ import ru.bellintegrator.practice.view.StatusView;
 public class DataResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     /**
-     * Метод исключает из обработки объекта класса StatusView
+     * Метод исключает из обработки объекты класса StatusView и ErrorView
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return methodParameter.getParameterType() != StatusView.class;
+        return ((methodParameter.getParameterType() != StatusView.class) &&
+                (methodParameter.getParameterType() != ErrorView.class));
     }
 
     /**
