@@ -47,7 +47,7 @@ class CountryServiceImplTest {
     void addCountry() {
         CountryView countryView = new CountryView();
         service.addCountry(countryView);
-        verify(dao, atLeastOnce()).add(any(Country.class));
+        verify(dao, atLeastOnce()).save(any(Country.class));
     }
 
     @Test
