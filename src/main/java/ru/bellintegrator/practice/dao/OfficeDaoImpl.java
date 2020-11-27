@@ -86,14 +86,9 @@ public class OfficeDaoImpl implements OfficeDao {
         criteriaUpdate
                 .where(builder.equal(root.get("id"), office.getId()))
                 .set(root.get("name"), office.getName())
-                .set(root.get("address"), office.getAddress());
-
-        if (office.getPhone() != null) {
-            criteriaUpdate.set(root.get("phone"), office.getPhone());
-        }
-        if (office.getActive() != null) {
-            criteriaUpdate.set(root.get("isActive"), office.getActive());
-        }
+                .set(root.get("address"), office.getAddress())
+                .set(root.get("phone"), office.getPhone())
+                .set(root.get("isActive"), office.getActive());
         em.createQuery(criteriaUpdate).executeUpdate();
     }
 

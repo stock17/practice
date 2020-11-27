@@ -62,7 +62,8 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     public void update(OfficeUpdateView officeUpdateView) {
         Objects.requireNonNull(officeUpdateView, "DTO офиса не должен быть NULL");
-        Office office = mapperFactory.getMapperFacade().map(officeUpdateView, Office.class);
+        Office office = officeDao.findById(officeUpdateView.getId());
+        mapperFactory.getMapperFacade().map(officeUpdateView, office);
         officeDao.update(office);
     }
 
