@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -44,7 +43,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Organization> findByName(@NotEmpty String name, String inn, Boolean isActive) {
+    public List<Organization> findByName(String name, String inn, Boolean isActive) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
         Root<Organization> root = criteria.from(Organization.class);
@@ -86,22 +85,14 @@ public class OrganizationDaoImpl implements OrganizationDao {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaUpdate<Organization> update = builder.createCriteriaUpdate(Organization.class);
         Root<Organization> root = update.from(Organization.class);
-
-        update.set(root.get("name"), organization.getName())
-            .set(root.get("fullName"), organization.getFullName())
-            .set(root.get("inn"), organization.getInn())
-            .set(root.get("kpp"), organization.getKpp())
-            .set(root.get("address"), organization.getAddress());
-
-        if (organization.getPhone() != null) {
-            update.set(root.get("phone"), organization.getPhone());
-        }
-
-        if (organization.getActive() != null) {
-            update.set(root.get("isActive"), organization.getActive());
-        }
-
-        update.where(builder.equal(root.get("id"), organization.getId()));
+        update.where(builder.equal(root.get("id"), organization.getId()))
+                .set(root.get("name"), organization.getName())
+                .set(root.get("fullName"), organization.getFullName())
+                .set(root.get("inn"), organization.getInn())
+                .set(root.get("kpp"), organization.getKpp())
+                .set(root.get("address"), organization.getAddress())
+                .set(root.get("phone"), organization.getPhone())
+                .set(root.get("isActive"), organization.getActive());
         em.createQuery(update).executeUpdate();
     }
 }
