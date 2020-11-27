@@ -34,9 +34,7 @@ public class OfficeDaoImpl implements OfficeDao {
      */
     @Transactional
     @Override
-    public List<Office> findByOrgId(Integer orgId, String name, String phone, Boolean isActive) {
-
-        Objects.requireNonNull(orgId, "Идентификатор организации не должен быть NULL");
+    public List<Office> findByOrgId(long orgId, String name, String phone, Boolean isActive) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Office> criteriaQuery = builder.createQuery(Office.class);
