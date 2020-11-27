@@ -30,7 +30,7 @@ public class DocumentType {
     /**
      * Наименование документа, соответствующее коду
      */
-    @Column(name = "name")
+    @Column(name = "name", length = 127, nullable = false)
     private String name;
 
     public Integer getCode() {
