@@ -4,13 +4,13 @@ import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bellintegrator.practice.daointerface.OrganizationDao;
+import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.serviceinterface.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
 
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 /**
  * Реализация интерфейса {@link ru.bellintegrator.practice.serviceinterface.OrganizationService}
@@ -60,8 +60,8 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public List<OrganizationShortView> findByName(@NotEmpty String name, String inn, Boolean isActive) {
-        List<Organization> organizations = dao.findByName(name, inn, isActive);
+    public List<OrganizationShortView> findByFilter(OrganizationRequestFilter filter) {
+        List<Organization> organizations = dao.findByFilter(filter);
         return mapperFactory.getMapperFacade().mapAsList(organizations, OrganizationShortView.class);
     }
 

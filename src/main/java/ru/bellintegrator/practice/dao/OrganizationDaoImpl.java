@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.daointerface.OrganizationDao;
+import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.model.Organization;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Реализация интерфейса {@link ru.bellintegrator.practice.daointerface.OrganizationDao}
@@ -43,16 +45,17 @@ public class OrganizationDaoImpl implements OrganizationDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Organization> findByName(String name, String inn, Boolean isActive) {
+    public List<Organization> findByFilter(OrganizationRequestFilter filter) {
+        Objects.requireNonNull(filter);
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
         Root<Organization> root = criteria.from(Organization.class);
-        Predicate predicate = builder.like(root.get("name"), name);
-        if (inn != null) {
-            predicate = builder.and(predicate, builder.equal(root.get("inn"), inn));
+        Predicate predicate = builder.like(root.get("name"), filter.getName());
+        if (filter.getInn() != null) {
+            predicate = builder.and(predicate, builder.equal(root.get("inn"), filter.getInn()));
         }
-        if (isActive != null) {
-            predicate = builder.and(predicate, builder.equal(root.get("isActive"), isActive));
+        if (filter.getActive() != null) {
+            predicate = builder.and(predicate, builder.equal(root.get("isActive"), filter.getActive()));
         }
         criteria.select(root).where(predicate);
         return em.createQuery(criteria).getResultList();

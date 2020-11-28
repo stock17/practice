@@ -1,11 +1,10 @@
 package ru.bellintegrator.practice.serviceinterface;
 
 
-import ru.bellintegrator.practice.view.DocumentTypeView;
+import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -37,12 +36,10 @@ public interface OrganizationService {
     /**
      * Метод возращает все найденые организации в виде списка DTO-объектов
      *
-     * @param name наименование организации (обязательный параметр)
-     * @param inn идентификационный налоговый номер
-     * @param isActive действующий статус
+     * @param filter dto, содержащий параметры фильтрации
      * @return список {@link ru.bellintegrator.practice.view.OrganizationView}
      */
-    List<OrganizationShortView> findByName(@NotEmpty String name, String inn, Boolean isActive);
+    List<OrganizationShortView> findByFilter(OrganizationRequestFilter filter);
 
     /**
      * Метод обновляет данные об уже существующей организации согласно переданным параметрам

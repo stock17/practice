@@ -3,6 +3,8 @@ package ru.bellintegrator.practice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
+import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.serviceinterface.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
@@ -57,20 +59,12 @@ public class OrganizationController {
     /**
      * Метод возвращает список организаций в кратком виде, у которых совпадают переданные параметры
      *
-     * @param body map, содержащая ключи name, inn и isActive
+     * @param filter dto, содержащий параметры фильтрации
      * @return список организаций в кратком виде
      */
     @PostMapping("/list")
-    public List<OrganizationShortView> getOrganizationsByName(@RequestBody Map<String, String> body) {
-        String name = body.get("name");
-        Objects.requireNonNull(name);
-        String inn = body.get("inn");
-        String isActiveString = body.get("isActive");
-        Boolean isActive = null;
-        if (isActiveString != null) {
-            isActive = Boolean.parseBoolean(isActiveString);
-        }
-        return service.findByName(name, inn, isActive);
+    public List<OrganizationShortView> getOrganizationsByName(@Valid @RequestBody OrganizationRequestFilter filter) {
+        return service.findByFilter(filter);
     }
 
     /**

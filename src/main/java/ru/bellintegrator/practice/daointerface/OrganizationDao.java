@@ -1,9 +1,8 @@
 package ru.bellintegrator.practice.daointerface;
 
-import ru.bellintegrator.practice.model.DocumentType;
+import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.model.Organization;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -21,14 +20,12 @@ public interface OrganizationDao {
 
     /**
      * Метод возвращает список организаций {@link ru.bellintegrator.practice.model.Organization},
-     * соотвествующий запросу по наименованию, инн и статусу. Наименование - обязательный параметр.
+     * соотвествующий фильтру по наименованию, инн и статусу.
      *
-     * @param name наименование (обязательный параметр)
-     * @param inn  идентификационный налоговый номер
-     * @param isActive действующий статус
+     * @param filter dto, содержащий параметры фильтрации
      * @return список организаций {@link ru.bellintegrator.practice.model.Organization}
      */
-    List<Organization> findByName(@NotEmpty String name, String inn, Boolean isActive);
+    List<Organization> findByFilter(OrganizationRequestFilter filter);
 
     /**
      * Метод добавляет новую организацию {@link ru.bellintegrator.practice.model.Country}

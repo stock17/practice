@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.bellintegrator.practice.daointerface.OrganizationDao;
+import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.model.Organization;
 
 import javax.persistence.EntityManager;
@@ -126,24 +127,31 @@ class OrganizationDaoImplTest {
     }
 
     @Test
-    void givenSaved_whenFindByName_thenCorrect() {
-        dao.save(organization);
-        String name = organization.getName();
-        String inn = organization.getInn();
-        Boolean isActive = organization.getActive();
-
-        assertTrue(dao.findByName(name, inn, isActive).contains(organization));
-        assertTrue(dao.findByName(name, null, null).contains(organization));
-    }
-
-    @Test
     void givenNotSaved_whenFindById_thenThrowException() {
         assertThrows(NoResultException.class, () -> dao.findById(organization.getId()));
     }
 
     @Test
-    void givenNotSaved_whenFindByName_thenThrowException() {
-        assertTrue(dao.findByName("another_name", null, null).isEmpty());
+    void givenSaved_whenFindByFilter_thenCorrect() {
+        dao.save(organization);
+        OrganizationRequestFilter filter = new OrganizationRequestFilter();
+        filter.setName(organization.getName());
+        filter.setInn(organization.getInn());
+        filter.setActive(organization.getActive());
+        assertTrue(dao.findByFilter(filter).contains(organization));
+
+        filter.setInn(null);
+        filter.setActive(null);
+        assertTrue(dao.findByFilter(filter).contains(organization));
+    }
+
+    @Test
+    void givenNotSaved_whenFindByFilter_thenThrowException() {
+        OrganizationRequestFilter filter = new OrganizationRequestFilter();
+        filter.setName(organization.getName());
+        filter.setInn(organization.getInn());
+        filter.setActive(organization.getActive());
+        assertTrue(dao.findByFilter(filter).isEmpty());
     }
 
     @Test
