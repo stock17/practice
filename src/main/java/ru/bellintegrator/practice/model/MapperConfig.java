@@ -4,8 +4,6 @@ import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.bellintegrator.practice.view.user.UserListRequestView;
-import ru.bellintegrator.practice.view.user.UserUpdateView;
 import ru.bellintegrator.practice.view.user.UserView;
 
 @Configuration

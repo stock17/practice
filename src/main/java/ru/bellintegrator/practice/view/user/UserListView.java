@@ -1,22 +1,24 @@
 package ru.bellintegrator.practice.view.user;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * DTO-класс для запроса списка работников {@link ru.bellintegrator.practice.model.User}
+ * DTO-класс для отображения информации о работнике {@link ru.bellintegrator.practice.model.User} в кратком виде в списке
  */
-public class UserListRequestView {
+public class UserListView {
 
     /**
-     * Id офиса
+     * Id
      */
-    @NotNull(message = "Офис не может быть пустым")
-    private Integer officeId;
+    @NotNull(message = "Id не может быть пустым")
+    private long id;
 
     /**
      * Имя
      */
+    @NotEmpty(message = "Имя не может быть пустым")
     @Size(max = 50)
     private String firstName;
 
@@ -35,25 +37,16 @@ public class UserListRequestView {
     /**
      * Должность
      */
+    @NotEmpty(message = "Должность не может быть пустой")
     @Size(max = 50)
     private String position;
 
-    /**
-     * Код документа, удостоверяющего личность
-     */
-    private Integer docCode;
-
-    /**
-     * Код гражданства
-     */
-    private Integer citizenshipCode;
-
-    public Integer getOfficeId() {
-        return officeId;
+    public long getId() {
+        return id;
     }
 
-    public void setOfficeId(Integer officeId) {
-        this.officeId = officeId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -86,21 +79,5 @@ public class UserListRequestView {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public Integer getDocCode() {
-        return docCode;
-    }
-
-    public void setDocCode(Integer docCode) {
-        this.docCode = docCode;
-    }
-
-    public Integer getCitizenshipCode() {
-        return citizenshipCode;
-    }
-
-    public void setCitizenshipCode(Integer citizenshipCode) {
-        this.citizenshipCode = citizenshipCode;
     }
 }

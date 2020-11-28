@@ -14,8 +14,8 @@ import ru.bellintegrator.practice.model.DocumentType;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.User;
 import ru.bellintegrator.practice.serviceinterface.UserService;
-import ru.bellintegrator.practice.view.user.UserListRequestView;
-import ru.bellintegrator.practice.view.user.UserListResponseView;
+import ru.bellintegrator.practice.filter.UserRequestFilter;
+import ru.bellintegrator.practice.view.user.UserListView;
 import ru.bellintegrator.practice.view.user.UserSaveView;
 import ru.bellintegrator.practice.view.user.UserUpdateView;
 import ru.bellintegrator.practice.view.user.UserView;
@@ -77,19 +77,13 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     * @param filter
      */
     @Override
-    public List<UserListResponseView> findByOfficeId(UserListRequestView requestView) {
-        Objects.requireNonNull(requestView);
-        List<User> users = userDao.findByOfficeId(requestView.getOfficeId(),
-                requestView.getFirstName(),
-                requestView.getMiddleName(),
-                requestView.getSecondName(),
-                requestView.getPosition(),
-                requestView.getDocCode(),
-                requestView.getCitizenshipCode());
-
-        return mapperFactory.getMapperFacade().mapAsList(users, UserListResponseView.class);
+    public List<UserListView> findByFilter(UserRequestFilter filter) {
+        Objects.requireNonNull(filter);
+        List<User> users = userDao.findByFilter(filter);
+        return mapperFactory.getMapperFacade().mapAsList(users, UserListView.class);
     }
 
     /**

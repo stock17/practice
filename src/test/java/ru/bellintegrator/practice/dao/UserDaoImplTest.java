@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.bellintegrator.practice.daointerface.UserDao;
+import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.model.Country;
 import ru.bellintegrator.practice.model.Document;
 import ru.bellintegrator.practice.model.Office;
@@ -97,7 +98,7 @@ class UserDaoImplTest {
     }
 
     @Test
-    void givenSaved_whenFindById_thenCorrect() {
+    void givenSaved_whenFindById_thenFound() {
         em.persist(user);
         long id = user.getId();
         assertSame(user, userDao.findById(id));
@@ -109,27 +110,31 @@ class UserDaoImplTest {
     }
 
     @Test
-    void givenSaved_whenFindByOfficeId_thenCorrect() {
+    void givenSaved_whenFindByFilter_thenFound() {
         em.persist(user);
         em.persist(document.getDocumentType());
         em.persist(document);
 
-        long officeId = user.getOffice().getId();
-        Integer docCode = document.getDocumentType().getCode();
-        assertTrue(userDao.findByOfficeId(officeId, user.getFirstName(), user.getMiddleName(),
-                user.getSecondName(), user.getPosition(), docCode, user.getCitizenship().getCode()).contains(user));
-        assertTrue(userDao.findByOfficeId(officeId, user.getFirstName(), null, null,
-                user.getPosition(), null, null).contains(user));
+        UserRequestFilter filter = new UserRequestFilter();
+        filter.setOfficeId(user.getOffice().getId());
+        assertTrue(userDao.findByFilter(filter).contains(user));
+
+        filter.setFirstName(user.getFirstName());
+        filter.setMiddleName(user.getMiddleName());
+        filter.setSecondName(user.getSecondName());
+        filter.setPosition(user.getPosition());
+        filter.setCitizenshipCode(user.getCitizenship().getCode());
+        filter.setDocCode(document.getDocumentType().getCode());
+
+        assertTrue(userDao.findByFilter(filter).contains(user));
     }
 
     @Test
-    void givenNotSaved_whenFindByOrgId_thenThrowException() {
+    void givenNotSaved_whenFindByFilter_thenNotFound() {
         long anotherId = 999L;
-        Integer docCode = document.getDocumentType().getCode();
-        assertTrue(userDao.findByOfficeId(anotherId, user.getFirstName(), user.getMiddleName(),
-                user.getSecondName(), user.getPosition(), docCode, user.getCitizenship().getCode()).isEmpty());
-        assertTrue(userDao.findByOfficeId(anotherId, user.getFirstName(), null, null,
-                user.getPosition(), null, null).isEmpty());
+        UserRequestFilter filter = new UserRequestFilter();
+        filter.setOfficeId(anotherId);
+        assertFalse(userDao.findByFilter(filter).contains(user));
     }
 
     @Test

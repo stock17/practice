@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.daointerface.UserDao;
+import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.model.Document;
 import ru.bellintegrator.practice.model.User;
 
@@ -67,37 +68,35 @@ public class UserDaoImpl implements UserDao {
      */
     @Transactional
     @Override
-    public List<User> findByOfficeId(Integer officeId, String firstName, String middleName, String secondName,
-                                     String position, Integer docCode, Integer citizenshipCode) {
+    public List<User> findByFilter(UserRequestFilter filter) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Document> query = builder.createQuery(Document.class);
         Root<Document> document = query.from(Document.class);
         Fetch<Document, User> documentUserFetch = document.fetch("user");
 
-        Predicate predicate = builder.equal(document.get("user").get("office").get("id"), officeId);
-        if (firstName != null) {
-            predicate = builder.and(predicate, builder.equal(document.get("user").get("firstName"), firstName));
+        Predicate predicate = builder.equal(document.get("user").get("office").get("id"), filter.getOfficeId());
+        if (filter.getFirstName() != null) {
+            predicate = builder.and(predicate, builder.equal(document.get("user").get("firstName"), filter.getFirstName()));
         }
-        if (middleName != null) {
-            predicate = builder.and(predicate, builder.equal(document.get("user").get("middleName"), middleName));
+        if (filter.getMiddleName() != null) {
+            predicate = builder.and(predicate, builder.equal(document.get("user").get("middleName"), filter.getMiddleName()));
         }
-        if (secondName != null) {
-            predicate = builder.and(predicate, builder.equal(document.get("user").get("secondName"), secondName));
+        if (filter.getSecondName() != null) {
+            predicate = builder.and(predicate, builder.equal(document.get("user").get("secondName"), filter.getSecondName()));
         }
-        if (position != null) {
-            predicate = builder.and(predicate, builder.equal(document.get("user").get("position"), position));
+        if (filter.getPosition() != null) {
+            predicate = builder.and(predicate, builder.equal(document.get("user").get("position"), filter.getPosition()));
         }
-        if (citizenshipCode != null) {
-            predicate = builder.and(predicate, builder.equal(document.get("user").get("citizenship").get("code"), citizenshipCode));
+        if (filter.getCitizenshipCode() != null) {
+            predicate = builder.and(predicate, builder.equal(document.get("user").get("citizenship").get("code"), filter.getCitizenshipCode()));
         }
-        if (docCode != null) {
-            predicate = builder.and(predicate, builder.equal(document.get("code"), docCode));
+        if (filter.getDocCode() != null) {
+            predicate = builder.and(predicate, builder.equal(document.get("documentType").get("code"), filter.getDocCode()));
         }
 
         query.select(document).where(predicate);
         List<Document> documents = em.createQuery(query).getResultList();
-        List<User> users = documents.stream().map(Document::getUser).collect(Collectors.toList());
-        return users;
+        return documents.stream().map(Document::getUser).collect(Collectors.toList());
     }
 }

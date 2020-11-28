@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.serviceinterface.UserService;
 import ru.bellintegrator.practice.view.StatusView;
-import ru.bellintegrator.practice.view.user.UserListRequestView;
-import ru.bellintegrator.practice.view.user.UserListResponseView;
+import ru.bellintegrator.practice.filter.UserRequestFilter;
+import ru.bellintegrator.practice.view.user.UserListView;
 import ru.bellintegrator.practice.view.user.UserSaveView;
 import ru.bellintegrator.practice.view.user.UserUpdateView;
 import ru.bellintegrator.practice.view.user.UserView;
@@ -60,12 +60,12 @@ public class UserController {
     /**
      * Метод возвращает список работников, соответствующих переданным параметром
      *
-     * @param requestView DTO c параметрами запроса
+     * @param filter DTO c параметрами запроса
      * @return список работников
      */
     @PostMapping("/list")
-    public List<UserListResponseView> getByOfficeId(@Valid @RequestBody UserListRequestView requestView) {
-        return userService.findByOfficeId(requestView);
+    public List<UserListView> getByOfficeId(@Valid @RequestBody UserRequestFilter filter) {
+        return userService.findByFilter(filter);
     }
 
     /**

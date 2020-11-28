@@ -1,24 +1,22 @@
-package ru.bellintegrator.practice.view.user;
+package ru.bellintegrator.practice.filter;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * DTO-класс для отображения информации о работнике {@link ru.bellintegrator.practice.model.User} в кратком виде в списке
+ * DTO-класс для запроса списка работников {@link ru.bellintegrator.practice.model.User}
  */
-public class UserListResponseView {
+public class UserRequestFilter {
 
     /**
-     * Id
+     * Id офиса
      */
-    @NotNull(message = "Id не может быть пустым")
-    private long id;
+    @NotNull(message = "Офис не может быть пустым")
+    private long officeId;
 
     /**
      * Имя
      */
-    @NotEmpty(message = "Имя не может быть пустым")
     @Size(max = 50)
     private String firstName;
 
@@ -37,16 +35,25 @@ public class UserListResponseView {
     /**
      * Должность
      */
-    @NotEmpty(message = "Должность не может быть пустой")
     @Size(max = 50)
     private String position;
 
-    public long getId() {
-        return id;
+    /**
+     * Код документа, удостоверяющего личность
+     */
+    private Integer docCode;
+
+    /**
+     * Код гражданства
+     */
+    private Integer citizenshipCode;
+
+    public long getOfficeId() {
+        return officeId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOfficeId(long officeId) {
+        this.officeId = officeId;
     }
 
     public String getFirstName() {
@@ -79,5 +86,21 @@ public class UserListResponseView {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Integer getDocCode() {
+        return docCode;
+    }
+
+    public void setDocCode(Integer docCode) {
+        this.docCode = docCode;
+    }
+
+    public Integer getCitizenshipCode() {
+        return citizenshipCode;
+    }
+
+    public void setCitizenshipCode(Integer citizenshipCode) {
+        this.citizenshipCode = citizenshipCode;
     }
 }

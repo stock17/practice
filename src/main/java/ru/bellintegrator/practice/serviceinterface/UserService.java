@@ -1,7 +1,7 @@
 package ru.bellintegrator.practice.serviceinterface;
 
-import ru.bellintegrator.practice.view.user.UserListRequestView;
-import ru.bellintegrator.practice.view.user.UserListResponseView;
+import ru.bellintegrator.practice.filter.UserRequestFilter;
+import ru.bellintegrator.practice.view.user.UserListView;
 import ru.bellintegrator.practice.view.user.UserSaveView;
 import ru.bellintegrator.practice.view.user.UserUpdateView;
 import ru.bellintegrator.practice.view.user.UserView;
@@ -31,10 +31,10 @@ public interface UserService {
     /**
      * Метод возращает список работников в соответствии с указанными параметрами
      *
-     * @param requestView DTO запроса {@link ru.bellintegrator.practice.view.user.UserListRequestView} (обязательный параметр)
+     * @param filter DTO запроса {@link UserRequestFilter}
      * @return список работников в кратком виде
      */
-    List<UserListResponseView> findByOfficeId(UserListRequestView requestView);
+    List<UserListView> findByFilter(UserRequestFilter filter);
 
     /**
      * Метод обновляет данные об уже существующем работнике согласно переданным параметрам
