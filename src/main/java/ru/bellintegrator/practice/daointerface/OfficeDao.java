@@ -1,5 +1,6 @@
 package ru.bellintegrator.practice.daointerface;
 
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.model.Office;
 
 import java.util.List;
@@ -27,13 +28,10 @@ public interface OfficeDao {
      * Метод возвращает список офисов  {@link ru.bellintegrator.practice.model.Office},
      * которые соостоят в организации с указанным Id и соответствуют дополнительным параметрам
      *
-     * @param orgId идентификатор организации (обязательный параметр)
-     * @param name  наименование офиса
-     * @param phone телефон офиса
-     * @param isActive действующий статус
+     * @param filter dto, содержащий параметры запроса
      * @return список офисов {@link ru.bellintegrator.practice.model.Office}
      */
-    List<Office> findByOrgId(long orgId, String name, String phone, Boolean isActive);
+    List<Office> findByFilter(OfficeRequestFilter filter);
 
     /**
      * Метод обноваляет данные уже существующего офиса {@link ru.bellintegrator.practice.model.Office}

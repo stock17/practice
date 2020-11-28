@@ -7,8 +7,8 @@ import ru.bellintegrator.practice.daointerface.OfficeDao;
 import ru.bellintegrator.practice.daointerface.OrganizationDao;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.serviceinterface.OfficeService;
-import ru.bellintegrator.practice.view.office.OfficeListRequestView;
-import ru.bellintegrator.practice.view.office.OfficeListResponseView;
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
+import ru.bellintegrator.practice.view.office.OfficeListView;
 import ru.bellintegrator.practice.view.office.OfficeSaveView;
 import ru.bellintegrator.practice.view.office.OfficeUpdateView;
 import ru.bellintegrator.practice.view.office.OfficeView;
@@ -47,13 +47,10 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
-    public List<OfficeListResponseView> findByOrgId(OfficeListRequestView requestView) {
-        Objects.requireNonNull(requestView, "DTO офиса не должен быть NULL");
-        List<Office> offices = officeDao.findByOrgId(requestView.getOrgId(),
-                                                     requestView.getName(),
-                                                     requestView.getPhone(),
-                                                     requestView.getActive());
-        return mapperFactory.getMapperFacade().mapAsList(offices, OfficeListResponseView.class);
+    public List<OfficeListView> findByFilter(OfficeRequestFilter filter) {
+        Objects.requireNonNull(filter, "DTO офиса не должен быть NULL");
+        List<Office> offices = officeDao.findByFilter(filter);
+        return mapperFactory.getMapperFacade().mapAsList(offices, OfficeListView.class);
     }
 
     /**

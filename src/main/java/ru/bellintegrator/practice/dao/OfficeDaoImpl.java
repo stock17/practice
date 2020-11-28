@@ -3,6 +3,7 @@ package ru.bellintegrator.practice.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.bellintegrator.practice.daointerface.OfficeDao;
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.model.Office;
 
 import javax.persistence.EntityManager;
@@ -31,27 +32,29 @@ public class OfficeDaoImpl implements OfficeDao {
 
     /**
      * {@inheritDoc}
+     * @param filter
      */
     @Transactional
     @Override
-    public List<Office> findByOrgId(long orgId, String name, String phone, Boolean isActive) {
+    public List<Office> findByFilter(OfficeRequestFilter filter) {
+        Objects.requireNonNull(filter, "Filter не должен быть NULL");
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Office> criteriaQuery = builder.createQuery(Office.class);
         Root<Office> root = criteriaQuery.from(Office.class);
 
-        Predicate predicate = builder.equal(root.get("organization").get("id"), orgId);
-        if (name != null) {
-            predicate = builder.and(predicate, builder.equal(root.get("name"), name));
+        Predicate predicate = builder.equal(root.get("organization").get("id"), filter.getOrgId());
+        if (filter.getName() != null) {
+            predicate = builder.and(predicate, builder.equal(root.get("name"), filter.getName()));
         }
-        if (phone != null) {
-            predicate = builder.and(predicate, builder.equal(root.get("phone"), phone));
+        if (filter.getPhone() != null) {
+            predicate = builder.and(predicate, builder.equal(root.get("phone"), filter.getPhone()));
         }
-        if (isActive != null) {
-            predicate = builder.and(predicate, builder.equal(root.get("isActive"), isActive));
+        if (filter.getActive() != null) {
+            predicate = builder.and(predicate, builder.equal(root.get("isActive"), filter.getActive()));
         }
 
-        criteriaQuery.where(predicate);
+        criteriaQuery.select(root).where(predicate);
         return em.createQuery(criteriaQuery).getResultList();
     }
 

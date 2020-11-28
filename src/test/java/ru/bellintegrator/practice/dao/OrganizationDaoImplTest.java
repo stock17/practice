@@ -120,7 +120,7 @@ class OrganizationDaoImplTest {
     }
 
     @Test
-    void givenSaved_whenFindById_thenCorrect() {
+    void givenSaved_whenFindById_thenFound() {
         dao.save(organization);
         long id = organization.getId();
         assertSame(organization, dao.findById(id));
@@ -132,7 +132,7 @@ class OrganizationDaoImplTest {
     }
 
     @Test
-    void givenSaved_whenFindByFilter_thenCorrect() {
+    void givenSaved_whenFindByFilter_thenFound() {
         dao.save(organization);
         OrganizationRequestFilter filter = new OrganizationRequestFilter();
         filter.setName(organization.getName());
@@ -151,7 +151,8 @@ class OrganizationDaoImplTest {
         filter.setName(organization.getName());
         filter.setInn(organization.getInn());
         filter.setActive(organization.getActive());
-        assertTrue(dao.findByFilter(filter).isEmpty());
+
+        assertFalse(dao.findByFilter(filter).contains(organization));
     }
 
     @Test

@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 /**
  * DTO-класс для возращения списка офисов {@link ru.bellintegrator.practice.model.Office} в кратком виде по запросу
  */
-public class OfficeListResponseView {
+public class OfficeListView {
 
     /**
      * ID

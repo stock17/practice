@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.view.office;
+package ru.bellintegrator.practice.filter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,13 +9,13 @@ import javax.validation.constraints.Size;
  * DTO-класс для запроса списка офисов {@link ru.bellintegrator.practice.model.Office},
  * соотвествующих переданным параметрам
  */
-public class OfficeListRequestView {
+public class OfficeRequestFilter {
 
     /**
      * Id организации, к которой относится офис
      */
     @NotNull(message = "Id организации не должно быть пустым")
-    private Integer orgId;
+    private long orgId;
 
     /**
      * Наименование
@@ -34,11 +34,11 @@ public class OfficeListRequestView {
      */
     private Boolean isActive;
 
-    public Integer getOrgId() {
+    public long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Integer orgId) {
+    public void setOrgId(long orgId) {
         this.orgId = orgId;
     }
 

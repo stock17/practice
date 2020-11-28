@@ -1,7 +1,7 @@
 package ru.bellintegrator.practice.serviceinterface;
 
-import ru.bellintegrator.practice.view.office.OfficeListRequestView;
-import ru.bellintegrator.practice.view.office.OfficeListResponseView;
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
+import ru.bellintegrator.practice.view.office.OfficeListView;
 import ru.bellintegrator.practice.view.office.OfficeSaveView;
 import ru.bellintegrator.practice.view.office.OfficeUpdateView;
 import ru.bellintegrator.practice.view.office.OfficeView;
@@ -25,10 +25,10 @@ public interface OfficeService {
     /**
      * Метод возращает все найденые офисы для указанной организации в виде списка DTO-объектов
      *
-     * @param requestView DTO запроса {@link OfficeListRequestView} (обязательный параметр)
-     * @return список {@link OfficeListResponseView}
+     * @param filter DTO запроса
+     * @return список {@link OfficeListView}
      */
-    List<OfficeListResponseView> findByOrgId(OfficeListRequestView requestView);
+    List<OfficeListView> findByFilter(OfficeRequestFilter filter);
 
     /**
      * Метод обновляет данные об уже существующем офисе согласно переданным параметрам

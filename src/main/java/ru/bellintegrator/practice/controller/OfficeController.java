@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bellintegrator.practice.serviceinterface.OfficeService;
 import ru.bellintegrator.practice.view.StatusView;
-import ru.bellintegrator.practice.view.office.OfficeListRequestView;
-import ru.bellintegrator.practice.view.office.OfficeListResponseView;
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
+import ru.bellintegrator.practice.view.office.OfficeListView;
 import ru.bellintegrator.practice.view.office.OfficeSaveView;
 import ru.bellintegrator.practice.view.office.OfficeUpdateView;
 import ru.bellintegrator.practice.view.office.OfficeView;
@@ -64,12 +64,12 @@ public class OfficeController {
     /**
      * Метод возвращает список офисов в кратком виде, у которых совпадают переданные параметры
      *
-     * @param requestView DTO офиса, содержащий переданные параметры orgId, name, phone, isActive
+     * @param filter DTO офиса, содержащий переданные параметры orgId, name, phone, isActive
      * @return список DTO офиса в кратком виде
      */
     @PostMapping("/list")
-    public List<OfficeListResponseView> getListByOrgId(@Valid @RequestBody OfficeListRequestView requestView) {
-        return service.findByOrgId(requestView);
+    public List<OfficeListView> getListByFilter(@Valid @RequestBody OfficeRequestFilter filter) {
+        return service.findByFilter(filter);
     }
 
     /**

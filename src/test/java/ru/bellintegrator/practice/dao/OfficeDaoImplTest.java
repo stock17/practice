@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import ru.bellintegrator.practice.daointerface.OfficeDao;
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.model.Office;
 
 import javax.persistence.EntityManager;
@@ -68,19 +69,20 @@ class OfficeDaoImplTest {
     }
 
     @Test
-    void givenSaved_whenFindByOrgId_thenCorrect() {
+    void givenSaved_whenFindByFilter_thenFound() {
         em.persist(office);
-        long orgId = office.getOrganization().getId();
+        OfficeRequestFilter filter = new OfficeRequestFilter();
+        filter.setOrgId(office.getOrganization().getId());
 
-        assertTrue(dao.findByOrgId(orgId, office.getName(), office.getPhone(), office.getActive()).contains(office));
-        assertTrue(dao.findByOrgId(orgId, null, null, null).contains(office));
+        assertTrue(dao.findByFilter(filter).contains(office));
     }
 
     @Test
-    void givenNotSaved_whenFindByOrgId_thenThrowException() {
-        long anotherId = 999L;
-        assertTrue(dao.findByOrgId(anotherId, office.getName(), office.getPhone(), office.getActive()).isEmpty());
-        assertTrue(dao.findByOrgId(anotherId, null, null, null).isEmpty());
+    void givenNotSaved_whenFindByFilter_thenNotFound() {
+        OfficeRequestFilter filter = new OfficeRequestFilter();
+        filter.setOrgId(999L);
+
+        assertFalse(dao.findByFilter(filter).contains(office));
     }
 
     @Test
