@@ -16,7 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * Класс контроллер для операций со странами
  */
 @RestController
-@RequestMapping(value = "/api/countries/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/countries/", produces = APPLICATION_JSON_VALUE + "; charset=utf-8")
 public class CountryController {
 
     private final CountryService service;

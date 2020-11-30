@@ -4,7 +4,6 @@ package ru.bellintegrator.practice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
-import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.serviceinterface.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
@@ -14,9 +13,6 @@ import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -24,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 * Класс контроллер для операций с организациями {@link ru.bellintegrator.practice.model.Organization}
 */
 @RestController
-@RequestMapping(value = "/api/organization/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/organization/", produces = APPLICATION_JSON_VALUE + "; charset=utf-8")
 public class OrganizationController {
 
     private final OrganizationService service;

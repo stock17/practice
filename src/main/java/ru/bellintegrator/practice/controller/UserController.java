@@ -25,7 +25,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * Проводит операции с работниками {@link ru.bellintegrator.practice.model.User}
  */
 @RestController
-@RequestMapping(value = "/api/user/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/user/", produces = APPLICATION_JSON_VALUE + "; charset=utf-8")
 public class UserController {
 
     private final UserService userService;

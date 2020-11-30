@@ -16,7 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * Класс контроллер для операций с типами документов {@link ru.bellintegrator.practice.model.DocumentType}
  */
 @RestController
-@RequestMapping(value = "/api/docs/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/docs/", produces = APPLICATION_JSON_VALUE + "; charset=utf-8")
 public class DocumentTypeController {
 
     private final DocumentTypeService service;
