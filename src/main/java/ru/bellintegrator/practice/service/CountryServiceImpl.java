@@ -9,6 +9,7 @@ import ru.bellintegrator.practice.serviceinterface.CountryService;
 import ru.bellintegrator.practice.view.CountryView;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +33,7 @@ public class CountryServiceImpl implements CountryService {
      */
     @Override
     public CountryView findByCode(Integer code) {
+        Objects.requireNonNull(code);
         Country country = countryDao.findByCode(code);
         return mapperFactory.getMapperFacade().map(country, CountryView.class);
     }
@@ -40,7 +42,7 @@ public class CountryServiceImpl implements CountryService {
      * {@inheritDoc}
      */
     @Override
-    public void addCountry(CountryView countryView) {
+    public void save(CountryView countryView) {
         Country country = mapperFactory.getMapperFacade().map(countryView, Country.class);
         countryDao.save(country);
     }

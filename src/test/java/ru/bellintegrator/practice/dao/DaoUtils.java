@@ -1,8 +1,11 @@
 package ru.bellintegrator.practice.dao;
 
+import ma.glasnost.orika.MapperFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.bellintegrator.practice.model.Country;
 import ru.bellintegrator.practice.model.Document;
 import ru.bellintegrator.practice.model.DocumentType;
+import ru.bellintegrator.practice.model.MapperConfig;
 import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 import ru.bellintegrator.practice.model.User;
@@ -10,6 +13,7 @@ import ru.bellintegrator.practice.model.User;
 import java.sql.Date;
 
 public class DaoUtils {
+
     private DaoUtils() {}
 
     public static Organization createOrganization() {

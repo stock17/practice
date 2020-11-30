@@ -23,7 +23,7 @@ public interface CountryService {
      * Метод сохраняет переданный объект
      * @param countryView DTO-объект
      */
-    void addCountry(CountryView countryView);
+    void save(CountryView countryView);
 
     /**
      * Метод возращает все найденные страны в виде списка DTO-объектов

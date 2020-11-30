@@ -12,6 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     /**
      * {@inheritDoc}
      */
+    @Transactional
     @Override
     public Organization findById(long id) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -44,6 +46,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     /**
      * {@inheritDoc}
      */
+    @Transactional
     @Override
     public List<Organization> findByFilter(OrganizationRequestFilter filter) {
         Objects.requireNonNull(filter);
@@ -64,6 +67,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     /**
      * {@inheritDoc}
      */
+    @Transactional
     @Override
     public void save(Organization organization) {
         em.persist(organization);
@@ -72,6 +76,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     /**
      * {@inheritDoc}
      */
+    @Transactional
     @Override
     public List<Organization> findAll() {
         CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -83,6 +88,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
     /**
      * {@inheritDoc}
      */
+    @Transactional
     @Override
     public void update(Organization organization) {
         CriteriaBuilder builder = em.getCriteriaBuilder();

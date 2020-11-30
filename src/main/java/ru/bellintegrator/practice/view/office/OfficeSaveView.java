@@ -14,7 +14,7 @@ public class OfficeSaveView {
      * Id организации, к которой относится офис
      */
     @NotNull(message = "Id организации не должно быть пустым")
-    private Integer orgId;
+    private Long orgId;
 
     /**
      * Наименование
@@ -39,11 +39,11 @@ public class OfficeSaveView {
      */
     private Boolean isActive;
 
-    public Integer getOrgId() {
+    public Long getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Integer orgId) {
+    public void setOrgId(Long orgId) {
         this.orgId = orgId;
     }
 

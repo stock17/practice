@@ -14,6 +14,12 @@ import java.util.List;
 public interface OfficeService {
 
     /**
+     * Метод сохраняет переданный объект
+     * @param officeSaveView DTO-объект офиса
+     */
+    void save(OfficeSaveView officeSaveView);
+
+    /**
      * Метод возвращает объект {@link OfficeView}
      * соответствующий переданному Id
      *
@@ -36,10 +42,4 @@ public interface OfficeService {
      * @param officeUpdateView DTO-объект офиса
      */
     void update(OfficeUpdateView officeUpdateView);
-
-    /**
-     * Метод сохраняет переданный объект
-     * @param officeSaveView DTO-объект офиса
-     */
-    void save(OfficeSaveView officeSaveView);
 }

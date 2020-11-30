@@ -1,11 +1,13 @@
 package ru.bellintegrator.practice.service;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import ru.bellintegrator.practice.dao.DaoUtils;
 import ru.bellintegrator.practice.daointerface.CountryDao;
 import ru.bellintegrator.practice.model.Country;
 import ru.bellintegrator.practice.serviceinterface.CountryService;
@@ -17,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@AutoConfigureTestDatabase
 class CountryServiceImplTest {
 
     @Autowired
@@ -26,36 +27,41 @@ class CountryServiceImplTest {
     @MockBean
     CountryDao dao;
 
-    private static Country country;
+    private Country country;
 
-    @BeforeAll
-    static void beforeAll() {
-        country = new Country();
-        country.setName("Hawaii");
-        country.setCode(999);
+    @BeforeEach
+    void setUp() {
+        country = DaoUtils.createCitizenship();
     }
 
     @Test
-    void findByCode() {
+    void givenSaved_whenFindByCode_thenFound(){
         when(dao.findByCode(country.getCode())).thenReturn(country);
-        CountryView countryView = service.findByCode(999);
-        assertEquals(999, countryView.getCode());
-        assertEquals("Hawaii", countryView.getName());
+        CountryView countryView = service.findByCode(country.getCode());
+        verify(dao, atLeastOnce()).findByCode(country.getCode());
+        assertEquals(country.getName(), countryView.getName());
+        assertEquals(country.getCode(), countryView.getCode());
     }
 
     @Test
-    void addCountry() {
+    void whenSave_thenDaoSaveCalled() {
         CountryView countryView = new CountryView();
-        service.addCountry(countryView);
+        service.save(countryView);
         verify(dao, atLeastOnce()).save(any(Country.class));
     }
 
     @Test
-    void findAll() {
+    void givenSaved_whenFindAll_thenFound() {
         when(dao.findAll()).thenReturn(List.of(country));
         List<CountryView> countries = service.findAll();
+        verify(dao, atLeastOnce()).findAll();
         assertTrue(countries.size() > 0);
-        assertEquals(999, countries.get(0).getCode());
-        assertEquals("Hawaii", countries.get(0).getName());
+        assertEquals(country.getCode(), countries.get(0).getCode());
+        assertEquals(country.getName(), countries.get(0).getName());
+    }
+
+    @Test
+    void givenCodeIsNull_whenSave_thenThrowException() {
+        assertThrows(NullPointerException.class, () -> service.save(null));
     }
 }

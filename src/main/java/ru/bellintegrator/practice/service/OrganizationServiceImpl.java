@@ -12,6 +12,8 @@ import ru.bellintegrator.practice.view.OrganizationView;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
+
 /**
  * Реализация интерфейса {@link ru.bellintegrator.practice.serviceinterface.OrganizationService}
  * с использованием библиотеки {@link ma.glasnost.orika}
@@ -32,19 +34,20 @@ public class OrganizationServiceImpl implements OrganizationService {
      * {@inheritDoc}
      */
     @Override
-    public OrganizationView findById(long id) {
-        Organization organization = dao.findById(id);
-        return mapperFactory.getMapperFacade().map(organization, OrganizationView.class);
+    @Transactional
+    public void save(OrganizationView organizationView) {
+        Objects.requireNonNull(organizationView);
+        Organization organization = mapperFactory.getMapperFacade().map(organizationView, Organization.class);
+        dao.save(organization);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    @Transactional
-    public void save(OrganizationView organizationView) {
-        Organization organization = mapperFactory.getMapperFacade().map(organizationView, Organization.class);
-        dao.save(organization);
+    public OrganizationView findById(long id) {
+        Organization organization = dao.findById(id);
+        return mapperFactory.getMapperFacade().map(organization, OrganizationView.class);
     }
 
     /**

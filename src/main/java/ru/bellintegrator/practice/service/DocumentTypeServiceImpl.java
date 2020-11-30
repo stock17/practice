@@ -9,6 +9,7 @@ import ru.bellintegrator.practice.serviceinterface.DocumentTypeService;
 import ru.bellintegrator.practice.view.DocumentTypeView;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Реализация интерфейса {@link ru.bellintegrator.practice.serviceinterface.DocumentTypeService}
@@ -31,6 +32,7 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
      */
     @Override
     public DocumentTypeView findByCode(Integer code) {
+        Objects.requireNonNull(code);
         DocumentType documentType = dao.findByCode(code);
         return mapperFactory.getMapperFacade().map(documentType, DocumentTypeView.class);
     }
@@ -39,7 +41,8 @@ public class DocumentTypeServiceImpl implements DocumentTypeService {
      * {@inheritDoc}
      */
     @Override
-    public void addDocumentType(DocumentTypeView documentTypeView) {
+    public void save(DocumentTypeView documentTypeView) {
+        Objects.requireNonNull(documentTypeView);
         DocumentType documentType = mapperFactory.getMapperFacade().map(documentTypeView, DocumentType.class);
         dao.save(documentType);
     }

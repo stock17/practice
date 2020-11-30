@@ -42,7 +42,5 @@ public interface UserService {
      * @param updateView DTO-объект работника
      */
     void update(UserUpdateView updateView);
-
-
 }
 

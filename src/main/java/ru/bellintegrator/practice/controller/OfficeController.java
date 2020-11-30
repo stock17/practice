@@ -29,7 +29,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * Проводит операции с офисами {@link ru.bellintegrator.practice.model.Office}
  */
 @RestController
-@RequestMapping(value = "/api/office/", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/office/", produces = APPLICATION_JSON_VALUE + "; charset=utf-8")
 public class OfficeController {
 
     private final OfficeService service;

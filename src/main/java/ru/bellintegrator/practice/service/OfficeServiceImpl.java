@@ -38,6 +38,17 @@ public class OfficeServiceImpl implements OfficeService {
      * {@inheritDoc}
      */
     @Override
+    public void save(OfficeSaveView officeSaveView) {
+        Objects.requireNonNull(officeSaveView, "DTO офиса не должен быть NULL");
+        Office office = mapperFactory.getMapperFacade().map(officeSaveView, Office.class);
+        office.setOrganization(organizationDao.findById(officeSaveView.getOrgId()));
+        officeDao.save(office);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public OfficeView findById(long id) {
         Office office = officeDao.findById(id);
         return mapperFactory.getMapperFacade().map(office, OfficeView.class);
@@ -62,16 +73,5 @@ public class OfficeServiceImpl implements OfficeService {
         Office office = officeDao.findById(officeUpdateView.getId());
         mapperFactory.getMapperFacade().map(officeUpdateView, office);
         officeDao.update(office);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void save(OfficeSaveView officeSaveView) {
-        Objects.requireNonNull(officeSaveView, "DTO офиса не должен быть NULL");
-        Office office = mapperFactory.getMapperFacade().map(officeSaveView, Office.class);
-        office.setOrganization(organizationDao.findById(officeSaveView.getOrgId()));
-        officeDao.save(office);
     }
 }

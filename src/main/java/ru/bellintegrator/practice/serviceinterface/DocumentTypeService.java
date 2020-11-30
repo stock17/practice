@@ -23,7 +23,7 @@ public interface DocumentTypeService {
      * Метод сохраняет переданный объект
      * @param documentTypeView DTO-объект
      */
-    void addDocumentType(DocumentTypeView documentTypeView);
+    void save(DocumentTypeView documentTypeView);
 
     /**
      * Метод возращает все найденые типы документов в виде списка DTO-объектов
