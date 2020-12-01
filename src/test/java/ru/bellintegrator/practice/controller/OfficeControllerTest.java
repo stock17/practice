@@ -15,10 +15,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.bellintegrator.practice.aspect.DataResponseBodyAdvice;
 import ru.bellintegrator.practice.aspect.GlobalExceptionHandler;
 import ru.bellintegrator.practice.dao.DaoUtils;
-import ru.bellintegrator.practice.daointerface.OrganizationDao;
-import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
-import ru.bellintegrator.practice.model.Organization;
-import ru.bellintegrator.practice.view.OrganizationView;
+import ru.bellintegrator.practice.daointerface.OfficeDao;
+import ru.bellintegrator.practice.filter.OfficeRequestFilter;
+import ru.bellintegrator.practice.model.Office;
+import ru.bellintegrator.practice.view.office.OfficeSaveView;
+import ru.bellintegrator.practice.view.office.OfficeView;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
@@ -33,9 +34,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class OrganizationControllerTest {
+class OfficeControllerTest {
 
-    private static final String URL = "/api/organization/";
+    private static final String URL = "/api/office/";
 
     private final String SUCCESS = "{\"result\":\"success\"}";
     private final String ERROR_TEMPLATE = "\\{\"error\":.*\\}";
@@ -45,10 +46,10 @@ class OrganizationControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private OrganizationController controller;
+    private OfficeController controller;
 
     @MockBean
-    private OrganizationDao mockDao;
+    private OfficeDao mockDao;
 
     @Autowired
     private MapperFactory mapperFactory;
@@ -63,10 +64,14 @@ class OrganizationControllerTest {
 
     @Test
     void whenPostSave_thenReturnSuccess() throws Exception {
+        OfficeSaveView view = createSaveView();
+        view.setOrgId(1L);
+        String body = convertViewToString(view);
+
         mockMvc.perform(post(URL + "save")
                 .characterEncoding("UTF-8")
                 .contentType("application/json")
-                .content(convertViewToString(createView())))
+                .content(body))
                 .andExpect(content().string(SUCCESS));
     }
 
@@ -82,13 +87,13 @@ class OrganizationControllerTest {
 
     @Test
     void whenGetId_whenReturnData() throws Exception {
-        Organization organization = DaoUtils.createOrganization();
-        when(mockDao.findById(organization.getId())).thenReturn(organization);
+        Office office = DaoUtils.createOffice();
+        when(mockDao.findById(office.getId())).thenReturn(office);
 
-        mockMvc.perform(get(URL + organization.getId()))
+        mockMvc.perform(get(URL + office.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.matchesPattern(DATA_TEMPLATE)))
-                .andExpect(content().string(containsString(organization.getName())));
+                .andExpect(content().string(containsString(office.getName())));
     }
 
     @Test
@@ -102,10 +107,10 @@ class OrganizationControllerTest {
 
     @Test
     void whenPostList_whenReturnData() throws Exception {
-        Organization organization = DaoUtils.createOrganization();
-        OrganizationRequestFilter filter = new OrganizationRequestFilter();
-        filter.setName(organization.getName());
-        when(mockDao.findByFilter(any())).thenReturn(List.of(organization));
+        Office office = DaoUtils.createOffice();
+        OfficeRequestFilter filter = new OfficeRequestFilter();
+        filter.setName(office.getName());
+        when(mockDao.findByFilter(any())).thenReturn(List.of(office));
 
         mockMvc.perform(post(URL + "list")
                 .characterEncoding("UTF-8")
@@ -113,17 +118,17 @@ class OrganizationControllerTest {
                 .content(new ObjectMapper().writeValueAsString(filter)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(Matchers.matchesPattern(LIST_TEMPLATE)))
-                .andExpect(content().string(containsString(organization.getName())));
+                .andExpect(content().string(containsString(office.getName())));
     }
 
     @Test
     void whenPostUpdate_thenReturnSuccess() throws Exception {
         long id = 1;
-        Organization organization = DaoUtils.createOrganization();
-        organization.setId(id);
-        when(mockDao.findById(1)).thenReturn(organization);
+        Office office = DaoUtils.createOffice();
+        office.setId(id);
+        when(mockDao.findById(1)).thenReturn(office);
 
-        OrganizationView view = createView();
+        OfficeView view = createView();
         view.setId(id);
 
         mockMvc.perform(post(URL + "update")
@@ -133,12 +138,15 @@ class OrganizationControllerTest {
                 .andExpect(content().string(SUCCESS));
     }
 
-    private String convertViewToString(OrganizationView view) throws JsonProcessingException {
+    private String convertViewToString(Object view) throws JsonProcessingException {
         return new ObjectMapper().writeValueAsString(view);
     }
 
-    private OrganizationView createView() {
-        return mapperFactory.getMapperFacade().map(DaoUtils.createOrganization(), OrganizationView.class);
+    private OfficeView createView() {
+        return mapperFactory.getMapperFacade().map(DaoUtils.createOffice(), OfficeView.class);
+    }
 
+    private OfficeSaveView createSaveView() {
+        return mapperFactory.getMapperFacade().map(DaoUtils.createOffice(), OfficeSaveView.class);
     }
 }

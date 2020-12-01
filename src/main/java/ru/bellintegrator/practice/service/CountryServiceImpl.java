@@ -43,6 +43,7 @@ public class CountryServiceImpl implements CountryService {
      */
     @Override
     public void save(CountryView countryView) {
+        Objects.requireNonNull(countryView);
         Country country = mapperFactory.getMapperFacade().map(countryView, Country.class);
         countryDao.save(country);
     }
