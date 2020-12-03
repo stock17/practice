@@ -36,9 +36,8 @@ public class OrganizationController {
      * @param organizationView организация
      */
     @PostMapping("/save")
-    public StatusView save(@RequestBody @Valid OrganizationView organizationView) {
+    public void save(@RequestBody @Valid OrganizationView organizationView) {
         service.save(organizationView);
-        return StatusView.SUCCESS;
     }
 
     /**
@@ -69,11 +68,10 @@ public class OrganizationController {
      * @param organizationView организация
      */
     @PostMapping("/update")
-    public StatusView update(@RequestBody @Valid OrganizationView organizationView) {
+    public void update(@RequestBody @Valid OrganizationView organizationView) {
         if (organizationView.getId() == 0) {
             throw new ValidationException("поле Id не может быть пустым");
         }
         service.update(organizationView);
-        return StatusView.SUCCESS;
     }
 }

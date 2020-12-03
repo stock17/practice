@@ -78,8 +78,7 @@ public class OfficeController {
      * @param officeUpdateView офис
      */
     @PostMapping("/update")
-    public StatusView update(@Valid @RequestBody OfficeUpdateView officeUpdateView) {
+    public void update(@Valid @RequestBody OfficeUpdateView officeUpdateView) {
         service.update(officeUpdateView);
-        return StatusView.SUCCESS;
     }
 }

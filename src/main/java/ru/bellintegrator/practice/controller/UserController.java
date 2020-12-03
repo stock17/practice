@@ -41,9 +41,8 @@ public class UserController {
      * @param saveView DTO работника
      */
     @PostMapping("/save")
-    public StatusView save(@Valid @RequestBody UserSaveView saveView) {
+    public void save(@Valid @RequestBody UserSaveView saveView) {
         userService.save(saveView);
-        return StatusView.SUCCESS;
     }
 
     /**
@@ -74,8 +73,7 @@ public class UserController {
      * @param updateView обновляемые параметры
      */
     @PostMapping("/update")
-    public StatusView update(@Valid @RequestBody UserUpdateView updateView) {
+    public void update(@Valid @RequestBody UserUpdateView updateView) {
         userService.update(updateView);
-        return StatusView.SUCCESS;
     }
 }

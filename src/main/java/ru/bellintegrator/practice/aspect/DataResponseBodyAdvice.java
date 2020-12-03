@@ -18,12 +18,11 @@ import ru.bellintegrator.practice.view.StatusView;
 public class DataResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     /**
-     * Метод исключает из обработки объекты класса StatusView и ErrorView
+     * Метод включает поддержку для всех типов объектов
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return ((methodParameter.getParameterType() != StatusView.class) &&
-                (methodParameter.getParameterType() != ErrorView.class));
+        return true;
     }
 
     /**
@@ -33,7 +32,13 @@ public class DataResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object obj, MethodParameter methodParameter, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest,
                                   ServerHttpResponse serverHttpResponse) {
-        return new DataView(obj);
+        if (obj instanceof ErrorView) {
+            return obj;
+        } else if (obj == null) {
+            return StatusView.SUCCESS;
+        } else {
+            return new DataView(obj);
+        }
     }
 
 
