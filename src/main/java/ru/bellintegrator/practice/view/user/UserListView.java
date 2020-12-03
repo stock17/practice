@@ -19,26 +19,26 @@ public class UserListView {
      * Имя
      */
     @NotEmpty(message = "Имя не может быть пустым")
-    @Size(max = 50)
+    @Size(max = 50,  message = "Имя не более 50 символов")
     private String firstName;
 
     /**
      * Отчество
      */
-    @Size(max = 50)
+    @Size(max = 50,  message = "Отчество не более 50 символов")
     private String middleName;
 
     /**
      * Фамилия
      */
-    @Size(max = 50)
+    @Size(max = 50,  message = "Фамилия не более 50 символов")
     private String secondName;
 
     /**
      * Должность
      */
     @NotEmpty(message = "Должность не может быть пустой")
-    @Size(max = 50)
+    @Size(max = 50,  message = "Должность не более 50 символов")
     private String position;
 
     public long getId() {

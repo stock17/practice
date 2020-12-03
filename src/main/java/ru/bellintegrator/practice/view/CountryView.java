@@ -18,8 +18,8 @@ public class CountryView {
     /**
      * Наименование страны
      */
-    @Size(max = 50)
     @NotEmpty(message = "Наименование не может быть пустым")
+    @Size(max = 50, message = "Наименование не более 50 символов")
     private String name;
 
     public Integer getCode() {

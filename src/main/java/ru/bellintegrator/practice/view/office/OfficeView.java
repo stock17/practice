@@ -16,19 +16,19 @@ public class OfficeView {
     /**
      * Наименование
      */
-    @Size(max = 50)
+    @Size(max = 50,  message = "Наименование не более 50 символов")
     private String name;
 
     /**
      * Почтовый адрес
      */
-    @Size(max = 255)
+    @Size(max = 255,  message = "Адрес не более 255 символов")
     private String address;
 
     /**
      * Телефон
      */
-    @Size(max = 20)
+    @Size(max = 20,  message = "Телефон не более 20 символов")
     private String phone;
 
     /**

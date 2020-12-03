@@ -19,41 +19,41 @@ public class OrganizationView {
      * Краткое наименование организации
      */
     @NotEmpty(message = "Наименование не может быть пустым")
-    @Size(max = 50)
+    @Size(max = 50, message = "Наименование не более 50 символов")
     private String name;
 
     /**
      * Полное наименование организации
      */
     @NotEmpty(message = "Полное наименование не может быть пустым")
-    @Size(max = 255)
+    @Size(max = 255, message = "Полное наименование не более 255 символов")
     private String fullName;
 
     /**
      * Идентификационный налоговый номер
      */
     @NotEmpty(message = "ИНН не может быть пустым")
-    @Size(min = 10, max = 10)
+    @Size(min = 10, max = 10, message = "ИНН 10 символов")
     private String inn;
 
     /**
      * Код причины постановки
      */
     @NotEmpty(message = "КПП не может быть пустым")
-    @Size(min = 9, max = 9)
+    @Size(min = 9, max = 9, message = "КПП 9 символов")
     private String kpp;
 
     /**
      * Адрес
      */
     @NotEmpty(message = "Адрес не может быть пустым")
-    @Size(max = 255)
+    @Size(max = 255, message = "Адрес не более 255 символов")
     private String address;
 
     /**
      * Телефон
      */
-    @Size(max = 20)
+    @Size(max = 20, message = "Телефон не более 20 символов")
     private String phone;
 
     /**

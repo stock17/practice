@@ -19,7 +19,7 @@ public class OfficeSaveView {
     /**
      * Наименование
      */
-    @Size(max = 50)
+    @Size(max = 50, message = "Наименование не более 50 символов")
     private String name;
 
     /**

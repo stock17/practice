@@ -22,38 +22,38 @@ public class UserView {
      * Имя
      */
     @NotEmpty(message = "Имя не может быть пустым")
-    @Size(max = 50)
+    @Size(max = 50,  message = "Имя не более 50 символов")
     private String firstName;
 
     /**
      * Отчество
      */
-    @Size(max = 50)
+    @Size(max = 50,  message = "Отчество не более 50 символов")
     private String middleName;
 
     /**
      * Фамилия
      */
-    @Size(max = 50)
+    @Size(max = 50,  message = "Фамилия не более 50 символов")
     private String secondName;
 
     /**
      * Должность
      */
     @NotEmpty(message = "Должность не может быть пустой")
-    @Size(max = 50)
+    @Size(max = 50,  message = "Должность не более 50 символов")
     private String position;
 
     /**
      * Телефон
      */
-    @Size(max = 20)
+    @Size(max = 20,  message = "Телефон не более 20 символов")
     private String phone;
 
     /**
      * Адрес
      */
-    @Size(max = 255)
+    @Size(max = 255,  message = "Адрес не более 255 символов")
     private String address;
 
     /**
@@ -64,13 +64,13 @@ public class UserView {
     /**
      * Наименование документа, удостоверяющего личность
      */
-    @Size(max = 255)
+    @Size(max = 255, message = "Наименование документа не более 255 символов")
     private String docName;
 
     /**
      * Номер документа, удостоверяющего личность
      */
-    @Size(max = 10)
+    @Size(max = 10,  message = "Номер документа не более 10 символов")
     private String docNumber;
 
     /**

@@ -19,7 +19,7 @@ public class OrganizationShortView {
      * Краткое наименование организации
      */
     @NotEmpty(message = "Наименование не может быть пустым")
-    @Size(max = 50)
+    @Size(max = 50, message = "Наименование не более 50 символов")
     private String name;
 
     /**
