@@ -2,10 +2,12 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.DocumentTypeDao;
 import ru.bellintegrator.practice.model.DocumentType;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -36,7 +38,12 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
         CriteriaQuery<DocumentType> criteria = builder.createQuery(DocumentType.class);
         Root<DocumentType> root = criteria.from(DocumentType.class);
         criteria.where(builder.equal(root.get("code"), code));
-        return em.createQuery(criteria).getSingleResult();
+        try {
+            return em.createQuery(criteria).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchIdException("Нет типа документа с кодом = " + code, e);
+        }
+
     }
 
     /**

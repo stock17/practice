@@ -2,10 +2,12 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.DocumentDao;
 import ru.bellintegrator.practice.model.Document;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
@@ -45,7 +47,12 @@ public class DocumentDaoImpl implements DocumentDao {
         CriteriaQuery<Document> query = builder.createQuery(Document.class);
         Root<Document> root = query.from(Document.class);
         query.select(root).where(builder.equal(root.get("id"), id));
-        return em.createQuery(query).getSingleResult();
+        try {
+            return em.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchIdException("Нет документа с Id = " + id, e);
+        }
+
     }
 
     /**

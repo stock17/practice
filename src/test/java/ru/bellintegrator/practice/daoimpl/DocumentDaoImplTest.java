@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.DocumentDao;
 import ru.bellintegrator.practice.model.Document;
 import ru.bellintegrator.practice.model.User;
@@ -50,6 +51,6 @@ class DocumentDaoImplTest {
     }
 
     @Test void givenNotSaved_whenFindByCode_thenThrowException() {
-        assertThrows(NoResultException.class, () -> dao.findById(document.getId()));
+        assertThrows(NoSuchIdException.class, () -> dao.findById(document.getId()));
     }
 }

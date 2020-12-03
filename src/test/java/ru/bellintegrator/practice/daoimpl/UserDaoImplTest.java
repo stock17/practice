@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.UserDao;
 import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.model.Country;
@@ -106,7 +107,7 @@ class UserDaoImplTest {
 
     @Test
     void givenNotSaved_whenFindById_thenThrowException() {
-        assertThrows(NoResultException.class, () -> userDao.findById(user.getId()));
+        assertThrows(NoSuchIdException.class, () -> userDao.findById(user.getId()));
     }
 
     @Test

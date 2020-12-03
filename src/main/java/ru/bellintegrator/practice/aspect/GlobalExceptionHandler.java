@@ -1,22 +1,41 @@
 package ru.bellintegrator.practice.aspect;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.bellintegrator.practice.view.ErrorView;
 
 /**
  * Класс обработки исключений
+ *
+ * Логгирует исключения, а оборачивает сообщение об ошибке в ErrorView
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final String SERVER_ERROR_CODE = "500";
+    private static final String NOT_FOUND_ERROR_CODE = "404";
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class.getSimpleName());
+
     /**
-     * Метод оборачивает исключение в класс ErrorView
+     * Метод обратывает исключение отсутствующего Id
+     *
+     * @return ErrorView
+     */
+    @ExceptionHandler(NoSuchIdException.class)
+    public ErrorView handleNoSuchIdException(NoSuchIdException e) {
+        LOGGER.error("user request error", e);
+        return new ErrorView(e.getMessage() +": " + NOT_FOUND_ERROR_CODE);
+    }
+    /**
+     * Метод обрататывает все остальные необработанные исключения
      *
      * @return ErrorView
      */
     @ExceptionHandler(Exception.class)
     public ErrorView handleException(Exception e) {
-        return new ErrorView(e.getMessage());
+        LOGGER.error("unhandled server error", e);
+        return new ErrorView("Ошибка сервера: " + SERVER_ERROR_CODE);
     }
 }

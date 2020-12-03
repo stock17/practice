@@ -2,11 +2,13 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.OrganizationDao;
 import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.model.Organization;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
@@ -40,7 +42,11 @@ public class OrganizationDaoImpl implements OrganizationDao {
         CriteriaQuery<Organization> criteria = builder.createQuery(Organization.class);
         Root<Organization> root = criteria.from(Organization.class);
         criteria.where(builder.equal(root.get("id"), id));
-        return em.createQuery(criteria).getSingleResult();
+        try {
+            return em.createQuery(criteria).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchIdException("Нет организации с Id = " + id, e);
+        }
     }
 
     /**

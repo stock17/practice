@@ -2,11 +2,13 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.OfficeDao;
 import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.model.Office;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
@@ -68,7 +70,11 @@ public class OfficeDaoImpl implements OfficeDao {
         CriteriaQuery<Office> criteriaQuery = builder.createQuery(Office.class);
         Root<Office> root = criteriaQuery.from(Office.class);
         criteriaQuery.where(builder.equal(root.get("id"), id));
-        return em.createQuery(criteriaQuery).getSingleResult();
+        try {
+            return em.createQuery(criteriaQuery).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchIdException("Нет офиса с Id = " + id, e);
+        }
     }
 
     /**

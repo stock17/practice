@@ -2,9 +2,11 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.CountryDao;
 import ru.bellintegrator.practice.model.Country;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -36,7 +38,11 @@ public class CountryDaoImpl implements CountryDao {
         CriteriaQuery<Country> criteria = builder.createQuery(Country.class);
         Root<Country> root = criteria.from(Country.class);
         criteria.where(builder.equal(root.get("code"), code));
-        return em.createQuery(criteria).getSingleResult();
+        try {
+            return em.createQuery(criteria).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchIdException("Нет страны с указанным кодом = " + code, e);
+        }
     }
 
     /**

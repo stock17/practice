@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.OrganizationDao;
 import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.model.Organization;
@@ -128,7 +129,7 @@ class OrganizationDaoImplTest {
 
     @Test
     void givenNotSaved_whenFindById_thenThrowException() {
-        assertThrows(NoResultException.class, () -> dao.findById(organization.getId()));
+        assertThrows(NoSuchIdException.class, () -> dao.findById(organization.getId()));
     }
 
     @Test

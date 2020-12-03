@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.OfficeDao;
 import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.model.Office;
@@ -66,6 +67,11 @@ class OfficeDaoImplTest {
         em.persist(office);
         long id = office.getId();
         assertSame(office, dao.findById(id));
+    }
+
+    @Test void givenNotSaved_whenFindById_thenThrowException() {
+        long badId = 999;
+        assertThrows(NoSuchIdException.class, () -> dao.findById(badId));
     }
 
     @Test

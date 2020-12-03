@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.bellintegrator.practice.aspect.DataResponseBodyAdvice;
 import ru.bellintegrator.practice.aspect.GlobalExceptionHandler;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.daoimpl.DaoUtils;
 import ru.bellintegrator.practice.dao.DocumentDao;
 import ru.bellintegrator.practice.dao.UserDao;
@@ -108,7 +109,7 @@ class UserControllerTest {
     @Test
     void givenIdIsNotValid_whenGetId_whenReturnError() throws Exception {
         long badId = 999;
-        when(userDao.findById(badId)).thenThrow(new PersistenceException("No such entity"));
+        when(userDao.findById(badId)).thenThrow(new NoSuchIdException("No such entity"));
 
         mockMvc.perform(get(URL + badId))
                 .andExpect(content().string(Matchers.matchesPattern(ERROR_TEMPLATE)));

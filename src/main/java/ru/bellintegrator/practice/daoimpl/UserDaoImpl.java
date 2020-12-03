@@ -2,12 +2,14 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.aspect.NoSuchIdException;
 import ru.bellintegrator.practice.dao.UserDao;
 import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.model.Document;
 import ru.bellintegrator.practice.model.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Fetch;
@@ -42,7 +44,11 @@ public class UserDaoImpl implements UserDao {
         CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
         criteriaQuery.where(builder.equal(root.get("id"), id));
-        return em.createQuery(criteriaQuery).getSingleResult();
+        try {
+            return em.createQuery(criteriaQuery).getSingleResult();
+        } catch (NoResultException e) {
+            throw new NoSuchIdException("Нет работника с Id = " + id, e);
+        }
     }
 
     /**
