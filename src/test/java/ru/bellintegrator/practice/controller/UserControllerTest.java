@@ -134,14 +134,12 @@ class UserControllerTest {
 
     @Test
     void whenPostUpdate_thenReturnSuccess() throws Exception {
-        long id = 1;
         User user = DaoUtils.createUser();
-        user.setId(id);
-        when(userDao.findById(id)).thenReturn(user);
-        when(documentDao.findById(id)).thenReturn(DaoUtils.createDocument(user));
+        when(userDao.findById(user.getId())).thenReturn(user);
+        when(documentDao.findById(user.getId())).thenReturn(DaoUtils.createDocument(user));
 
         UserUpdateView view = createUpdateView();
-        view.setId(id);
+        view.setId(user.getId());
 
         mockMvc.perform(post(URL + "update")
                 .characterEncoding("UTF-8")

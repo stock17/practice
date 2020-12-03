@@ -119,13 +119,12 @@ class OrganizationControllerTest {
 
     @Test
     void whenPostUpdate_thenReturnSuccess() throws Exception {
-        long id = 1;
+
         Organization organization = DaoUtils.createOrganization();
-        organization.setId(id);
-        when(mockDao.findById(1)).thenReturn(organization);
+        when(mockDao.findById(organization.getId())).thenReturn(organization);
 
         OrganizationView view = createView();
-        view.setId(id);
+        view.setId(organization.getId());
 
         mockMvc.perform(post(URL + "update")
                 .characterEncoding("UTF-8")

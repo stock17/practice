@@ -76,10 +76,6 @@ public class Organization {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public Integer getVersion() {
         return version;
     }

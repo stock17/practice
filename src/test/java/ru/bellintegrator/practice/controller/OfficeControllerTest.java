@@ -123,13 +123,11 @@ class OfficeControllerTest {
 
     @Test
     void whenPostUpdate_thenReturnSuccess() throws Exception {
-        long id = 1;
         Office office = DaoUtils.createOffice();
-        office.setId(id);
-        when(mockDao.findById(1)).thenReturn(office);
+        when(mockDao.findById(office.getId())).thenReturn(office);
 
         OfficeView view = createView();
-        view.setId(id);
+        view.setId(office.getId());
 
         mockMvc.perform(post(URL + "update")
                 .characterEncoding("UTF-8")
