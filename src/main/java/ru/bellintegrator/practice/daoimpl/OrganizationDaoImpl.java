@@ -2,9 +2,11 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.exception.NoSuchEntityException;
 import ru.bellintegrator.practice.exception.NoSuchIdException;
 import ru.bellintegrator.practice.dao.OrganizationDao;
 import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
+import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.Organization;
 
 import javax.persistence.EntityManager;
@@ -67,7 +69,11 @@ public class OrganizationDaoImpl implements OrganizationDao {
             predicate = builder.and(predicate, builder.equal(root.get("isActive"), filter.getActive()));
         }
         criteria.select(root).where(predicate);
-        return em.createQuery(criteria).getResultList();
+        List<Organization> result = em.createQuery(criteria).getResultList();
+        if (result.isEmpty()) {
+            throw new NoSuchEntityException("Организация с указанными параметрами не найдена");
+        }
+        return result;
     }
 
     /**

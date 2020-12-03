@@ -2,10 +2,12 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.bellintegrator.practice.exception.NoSuchEntityException;
 import ru.bellintegrator.practice.exception.NoSuchIdException;
 import ru.bellintegrator.practice.dao.UserDao;
 import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.model.Document;
+import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.User;
 
 import javax.persistence.EntityManager;
@@ -103,6 +105,11 @@ public class UserDaoImpl implements UserDao {
 
         query.select(document).where(predicate);
         List<Document> documents = em.createQuery(query).getResultList();
-        return documents.stream().map(Document::getUser).collect(Collectors.toList());
+        List<User> users = documents.stream().map(Document::getUser).collect(Collectors.toList());
+
+        if (users.isEmpty()) {
+            throw new NoSuchEntityException("Работники с указанными параметрами не найдены");
+        }
+        return users;
     }
 }

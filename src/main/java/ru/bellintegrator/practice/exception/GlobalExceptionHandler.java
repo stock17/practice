@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
      *
      * @return ErrorView
      */
-    @ExceptionHandler(NoSuchIdException.class)
-    public ErrorView handleNoSuchIdException(NoSuchIdException e) {
+    @ExceptionHandler({NoSuchIdException.class, NoSuchEntityException.class})
+    public ErrorView handleNoSuchIdException(RuntimeException e) {
         LOGGER.error("user request error", e);
         return new ErrorView(e.getMessage() +": " + NOT_FOUND_ERROR_CODE);
     }
