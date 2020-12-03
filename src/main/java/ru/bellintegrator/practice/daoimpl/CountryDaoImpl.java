@@ -2,7 +2,7 @@ package ru.bellintegrator.practice.daoimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ru.bellintegrator.practice.aspect.NoSuchIdException;
+import ru.bellintegrator.practice.exception.NoSuchIdException;
 import ru.bellintegrator.practice.dao.CountryDao;
 import ru.bellintegrator.practice.model.Country;
 import javax.persistence.EntityManager;

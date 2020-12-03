@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.aspect;
+package ru.bellintegrator.practice.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

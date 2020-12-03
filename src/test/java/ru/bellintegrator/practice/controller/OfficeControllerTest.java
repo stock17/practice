@@ -13,8 +13,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.bellintegrator.practice.aspect.DataResponseBodyAdvice;
-import ru.bellintegrator.practice.aspect.GlobalExceptionHandler;
-import ru.bellintegrator.practice.aspect.NoSuchIdException;
+import ru.bellintegrator.practice.exception.GlobalExceptionHandler;
+import ru.bellintegrator.practice.exception.NoSuchIdException;
 import ru.bellintegrator.practice.daoimpl.DaoUtils;
 import ru.bellintegrator.practice.dao.OfficeDao;
 import ru.bellintegrator.practice.filter.OfficeRequestFilter;
@@ -22,7 +22,6 @@ import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.view.office.OfficeSaveView;
 import ru.bellintegrator.practice.view.office.OfficeView;
 
-import javax.persistence.PersistenceException;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;

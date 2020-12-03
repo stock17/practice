@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import ru.bellintegrator.practice.aspect.NoSuchIdException;
+import ru.bellintegrator.practice.exception.NoSuchIdException;
 import ru.bellintegrator.practice.dao.OfficeDao;
 import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.model.Office;

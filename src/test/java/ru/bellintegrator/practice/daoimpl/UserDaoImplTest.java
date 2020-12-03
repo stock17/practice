@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import ru.bellintegrator.practice.aspect.NoSuchIdException;
+import ru.bellintegrator.practice.exception.NoSuchIdException;
 import ru.bellintegrator.practice.dao.UserDao;
 import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.model.Country;
@@ -15,7 +15,6 @@ import ru.bellintegrator.practice.model.Office;
 import ru.bellintegrator.practice.model.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import static org.junit.jupiter.api.Assertions.*;

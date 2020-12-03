@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.aspect;
+package ru.bellintegrator.practice.exception;
 
 /**
  * Исключение при отсутствии объекта с указанным ID в базе

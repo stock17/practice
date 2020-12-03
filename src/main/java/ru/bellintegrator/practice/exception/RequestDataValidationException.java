@@ -1,4 +1,4 @@
-package ru.bellintegrator.practice.aspect;
+package ru.bellintegrator.practice.exception;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
