@@ -1,12 +1,14 @@
 package ru.bellintegrator.practice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.bellintegrator.practice.aspect.RequestDataValidationException;
 import ru.bellintegrator.practice.service.UserService;
 import ru.bellintegrator.practice.view.StatusView;
 import ru.bellintegrator.practice.filter.UserRequestFilter;
@@ -41,7 +43,10 @@ public class UserController {
      * @param saveView DTO работника
      */
     @PostMapping("/save")
-    public void save(@Valid @RequestBody UserSaveView saveView) {
+    public void save(@Valid @RequestBody UserSaveView saveView, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new RequestDataValidationException(errors);
+        }
         userService.save(saveView);
     }
 
@@ -73,7 +78,10 @@ public class UserController {
      * @param updateView обновляемые параметры
      */
     @PostMapping("/update")
-    public void update(@Valid @RequestBody UserUpdateView updateView) {
+    public void update(@Valid @RequestBody UserUpdateView updateView, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new RequestDataValidationException(errors);
+        }
         userService.update(updateView);
     }
 }

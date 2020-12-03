@@ -2,7 +2,9 @@ package ru.bellintegrator.practice.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import ru.bellintegrator.practice.aspect.RequestDataValidationException;
 import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
 import ru.bellintegrator.practice.service.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
@@ -36,7 +38,10 @@ public class OrganizationController {
      * @param organizationView организация
      */
     @PostMapping("/save")
-    public void save(@RequestBody @Valid OrganizationView organizationView) {
+    public void save(@RequestBody @Valid OrganizationView organizationView, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new RequestDataValidationException(errors);
+        }
         service.save(organizationView);
     }
 
@@ -68,9 +73,9 @@ public class OrganizationController {
      * @param organizationView организация
      */
     @PostMapping("/update")
-    public void update(@RequestBody @Valid OrganizationView organizationView) {
-        if (organizationView.getId() == 0) {
-            throw new ValidationException("поле Id не может быть пустым");
+    public void update(@RequestBody @Valid OrganizationView organizationView, Errors errors) {
+        if (errors.hasErrors()) {
+            throw new RequestDataValidationException(errors);
         }
         service.update(organizationView);
     }

@@ -16,6 +16,7 @@ public class GlobalExceptionHandler {
 
     private static final String SERVER_ERROR_CODE = "500";
     private static final String NOT_FOUND_ERROR_CODE = "404";
+    private static final String BAD_REQUEST_ERROR_CODE = "401";
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class.getSimpleName());
 
     /**
@@ -27,6 +28,17 @@ public class GlobalExceptionHandler {
     public ErrorView handleNoSuchIdException(NoSuchIdException e) {
         LOGGER.error("user request error", e);
         return new ErrorView(e.getMessage() +": " + NOT_FOUND_ERROR_CODE);
+    }
+
+    /**
+     * Метод обратывает исключение валидации входящих данных
+     *
+     * @return ErrorView
+     */
+    @ExceptionHandler(RequestDataValidationException.class)
+    public ErrorView handleRequestDataValidationException(RequestDataValidationException e) {
+        LOGGER.error("user request error", e);
+        return new ErrorView(e.getMessage() +": " + BAD_REQUEST_ERROR_CODE);
     }
     /**
      * Метод обрататывает все остальные необработанные исключения
