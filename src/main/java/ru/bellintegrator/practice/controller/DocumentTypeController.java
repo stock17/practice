@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.bellintegrator.practice.model.DocumentType;
-import ru.bellintegrator.practice.serviceinterface.DocumentTypeService;
+import ru.bellintegrator.practice.service.DocumentTypeService;
 import ru.bellintegrator.practice.view.DocumentTypeView;
 
 import java.util.List;

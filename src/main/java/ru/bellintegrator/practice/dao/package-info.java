@@ -1,4 +1,4 @@
 /**
- * Классы уровния DAO
+ * Интерфейсы классов уровния DAO
  */
 package ru.bellintegrator.practice.dao;

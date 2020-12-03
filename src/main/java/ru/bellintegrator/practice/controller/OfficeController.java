@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.bellintegrator.practice.serviceinterface.OfficeService;
+import ru.bellintegrator.practice.service.OfficeService;
 import ru.bellintegrator.practice.view.StatusView;
 import ru.bellintegrator.practice.filter.OfficeRequestFilter;
 import ru.bellintegrator.practice.view.office.OfficeListView;

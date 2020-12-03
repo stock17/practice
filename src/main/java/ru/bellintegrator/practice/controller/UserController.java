@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.bellintegrator.practice.serviceinterface.UserService;
+import ru.bellintegrator.practice.service.UserService;
 import ru.bellintegrator.practice.view.StatusView;
 import ru.bellintegrator.practice.filter.UserRequestFilter;
 import ru.bellintegrator.practice.view.user.UserListView;

@@ -4,7 +4,7 @@ package ru.bellintegrator.practice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.bellintegrator.practice.filter.OrganizationRequestFilter;
-import ru.bellintegrator.practice.serviceinterface.OrganizationService;
+import ru.bellintegrator.practice.service.OrganizationService;
 import ru.bellintegrator.practice.view.OrganizationShortView;
 import ru.bellintegrator.practice.view.OrganizationView;
 import ru.bellintegrator.practice.view.StatusView;
